@@ -21,12 +21,12 @@ const NavLink = () => {
                 </Link>                           
             </li>                
             <li>
-                <Link href='/login' className={`block py-2 px-3 ounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  ${ pathName.startsWith("/login") ? "text-blue-700" : "text-white"}`} aria-current="page">
+                <Link href='/account/login' className={`block py-2 px-3 ounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  ${ pathName.startsWith("/account/login") ? "text-blue-700" : "text-white"}`} aria-current="page">
                     Login
                 </Link>                         
             </li>
             <li>
-                <Link href='/sign-up' className={`block py-2 px-3 ounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  ${ pathName.startsWith("/sign-up") ? "text-blue-700" : "text-white"}`} aria-current="page">
+                <Link href='/account/sign-up' className={`block py-2 px-3 ounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  ${ pathName.startsWith("/account/sign-up") ? "text-blue-700" : "text-white"}`} aria-current="page">
                     Sign Up
                 </Link>
             </li>

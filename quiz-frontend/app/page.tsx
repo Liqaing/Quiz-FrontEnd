@@ -1,6 +1,9 @@
 import AllQuiz from "@/components/quiz/quiz";
 import Link from "next/link";
 
+interface Quiz {
+  name: string;
+}
 
 export default async function home() {
     
@@ -15,7 +18,8 @@ export default async function home() {
     console.log(quizList)
 
   return (
-    <div className="max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-row auto-rows-max mx-auto p-4 gap-6">            
+    <section className="block">
+      <div className="max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-row auto-rows-max mx-auto p-4 gap-6">            
           {
             quizList.map((quiz: any) => (          
               <div key={quiz.id} className="sm:w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -36,5 +40,7 @@ export default async function home() {
             ))
           } 
     </div>
+    </section>
+    
   );
 }
