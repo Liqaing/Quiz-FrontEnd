@@ -9,7 +9,7 @@ export default async function home() {
     let page = 0;
     let size = "TWENTY";
     const response = await fetch(`http://localhost:8080/api/quiz/findAll?orderBy=${orderBy}&order=${order}&page=${page}&size=${size}`);
-
+   
     let quizzes = await response.json();  
     let quizList = quizzes["quizzes"];
     console.log(quizList)
@@ -38,12 +38,3 @@ export default async function home() {
     </div>
   );
 }
-
-// {<div>      
-//   <main className="flex min-h-screen flex-col items-center justify-between p-24">      
-//     <div className="">
-//       Hello World
-//     </div>
-//   </main>
-// </div>
-// }

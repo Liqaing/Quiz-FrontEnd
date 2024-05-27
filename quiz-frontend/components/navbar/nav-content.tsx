@@ -6,7 +6,7 @@ const NavBarContent = ({isMenuOpen, handleToggle}: {isMenuOpen: boolean, handleT
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="icon.png" className="h-8" alt="Quiz Logo" />
+                    <img src="/icon.png" className="h-8" alt="Quiz Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Quiz</span>
                 </Link>
                 <div className="flex md:order-2">                     
