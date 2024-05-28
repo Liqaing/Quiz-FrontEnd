@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 interface RegisterData {
     username: string,
     password: string,
@@ -31,7 +33,7 @@ const SignUpAction = async (formData:any) => {
         })
     });
 
-    console.log(response.json());
+    redirect("/account/login")
 }
 
 export default SignUpAction

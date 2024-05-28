@@ -1,5 +1,7 @@
 import AllQuiz from "@/components/quiz/quiz";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface Quiz {
   name: string;
@@ -7,16 +9,44 @@ interface Quiz {
 
 export default async function home() {
     
-    let orderBy = "DATE";
-    let order = "DESC";
-    let page = 0;
-    let size = "TWENTY";
-    const response = await fetch(`http://localhost:8080/api/quiz/findAll?orderBy=${orderBy}&order=${order}&page=${page}&size=${size}`);
-   
-    let quizzes = await response.json();  
-    let quizList = quizzes["quizzes"];
-    console.log(quizList)
+  const reqHeaders = new Headers();
+  const userCookies = cookies().get("quiz-session");
 
+  reqHeaders.append("Content-Type", "application/json");
+  if (userCookies != null) {
+    reqHeaders.append("Authorization", "Bearer " + String(userCookies));    
+  }
+
+  // console.log(reqHeaders.get("Authorization"))
+
+  const url = new URL(`${process.env.BASE_API_URL}api/quiz/findAll` as string);
+  const searchParams = new URLSearchParams(
+    {
+      orderBy: "DATE",
+      order: "DESC",
+      page: "0",
+      size: "TWENTY"
+    }
+  );
+
+  url.search = searchParams.toString();
+  // console.log(url)
+  const response = await fetch(
+    // url.href,
+    "https://quiz-uy6f.onrender.com/api/quiz/findAll?orderBy=NAME&order=ASC&page=0&size=TEN",
+    {
+      method: "GET",
+      headers: reqHeaders
+    }
+  )
+
+  let quizzes:any =  response.json(); 
+
+  console.log("Qui Rithy")
+  console.log(quizzes)
+  let quizList = quizzes["quizzes"];
+  console.log("Rithy1")
+  
   return (
     <section className="block">
       <div className="max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-row auto-rows-max mx-auto p-4 gap-6">            
@@ -24,7 +54,7 @@ export default async function home() {
             quizList.map((quiz: any) => (          
               <div key={quiz.id} className="sm:w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                   <Link href="#">
-                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{quiz.name}</h5>
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{quiz["name"]}</h5>
                   </Link>
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{quiz["description"]}</p>
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
@@ -39,8 +69,11 @@ export default async function home() {
               </div>
             ))
           } 
-    </div>
+      </div>
     </section>
     
   );
+  // return (
+  //   <div>main</div>
+  // )
 }
