@@ -2,9 +2,7 @@ import Link from "next/link"
 import NavLink from "./nav-link"
 import CheckLogin from "@/utils/CheckLogin";
 
-const NavBarContent = ({isMenuOpen, handleToggle}: {isMenuOpen: boolean, handleToggle:any}) => {
-    
-    const isLogIn = CheckLogin();
+const NavBarContent = ({isMenuOpen, handleToggle}: {isMenuOpen: boolean, handleToggle:any}) => {        
 
     return (                
 
@@ -21,7 +19,7 @@ const NavBarContent = ({isMenuOpen, handleToggle}: {isMenuOpen: boolean, handleT
                     </svg>
                 </button>
                 <div className={`w-full md:block md:w-auto ${isMenuOpen? "Block" : "hidden"}`} id="navbar-default">
-                    <NavLink isLogIn={isLogIn}></NavLink>
+                    <NavLink CheckLogin={CheckLogin}></NavLink>
                 </div>
             </div>
         </nav>

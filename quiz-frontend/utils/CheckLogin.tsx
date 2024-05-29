@@ -2,13 +2,8 @@
 
 import { cookies } from "next/headers";
 
-const CheckLogin = () => {
-    const userCookies = cookies().get("quiz-session");  
-    
-    if (userCookies) {
-        return true;
-    }
-    return false;
+const CheckLogin = async () => {
+    return cookies().has("quiz-session");
 }
 
 export default CheckLogin;

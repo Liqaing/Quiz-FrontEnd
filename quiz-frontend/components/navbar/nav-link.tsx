@@ -1,11 +1,12 @@
 'use client';
 
-import HandLogout from "@/utils/handleLogout";
+import HandLogout from "@/utils/HandleLogout";
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 
-const NavLink = ({isLogIn}: {isLogIn:boolean}) => {
-    
+const NavLink = (props: any) => {
+    const isLogin = props.CheckLogin();
+    console.log( props.CheckLogin(), 'kkkkk')
     // Retreive path name which user currently on
     const pathName = usePathname(); 
     
@@ -22,7 +23,7 @@ const NavLink = ({isLogIn}: {isLogIn:boolean}) => {
                 </Link>                           
             </li>
 
-            {!isLogIn && (
+            {!isLogin && (
                 <>
                     <li>
                         <Link href='/account/login' className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700  ${ pathName.startsWith("/account/login") ? "text-blue-700 underline underline-offset-4" : "text-white-700"}`} aria-current="page">
@@ -37,7 +38,7 @@ const NavLink = ({isLogIn}: {isLogIn:boolean}) => {
                 </>
             )}
             
-            {isLogIn && (
+            {isLogin && (
                 <>
                     <form action={HandLogout}>
                         <li>
