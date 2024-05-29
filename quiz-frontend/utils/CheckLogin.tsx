@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-const CheckLogin = async () => {
+const CheckLogin = () => {
     return cookies().has("quiz-session");
 }
 

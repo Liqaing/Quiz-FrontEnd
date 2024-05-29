@@ -21,7 +21,3 @@ const AllQuiz = async () => {
 }
   
 export default {AllQuiz};
-
-// {quizzes.map((quiz:any) => {
-//     quiz["name"]
-// })}

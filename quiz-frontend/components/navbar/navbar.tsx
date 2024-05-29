@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { useState } from "react"
 import NavBarContent from "./nav-content";
@@ -9,14 +9,14 @@ const Navbar = () => {
      *      
     */
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);    
-    const handleToggle = () => {    
-        setIsMenuOpen(!isMenuOpen);
-    }
+    // const [isMenuOpen, setIsMenuOpen] = useState(false);    
+    // const handleToggle = () => {    
+    //     setIsMenuOpen(!isMenuOpen);
+    // }
 
 
     return (
-        <NavBarContent isMenuOpen={isMenuOpen} handleToggle={handleToggle}></NavBarContent>
+        <NavBarContent></NavBarContent>
     )
 }
 
