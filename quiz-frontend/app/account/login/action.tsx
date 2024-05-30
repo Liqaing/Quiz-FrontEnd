@@ -25,7 +25,7 @@ const LoginAction = async (formData:FormData) => {
     })
         if(res.ok) {
             data = await res.text()
-            console.log(data);
+            console.log(data);            
             cookies().set("quiz-session", data, { httpOnly: true });
         }
     } catch (error) {

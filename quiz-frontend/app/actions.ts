@@ -17,6 +17,11 @@ export async function FetchQuiz(prop: {page:Number}) {
     }
 
     const quizzes = await FindAll({page: prop.page, reqHeaders});
-    const quizList = JSON.parse(JSON.stringify(quizzes)).quizzes;
-    return quizList;
+    
+    const quizzesData = JSON.parse(JSON.stringify(quizzes));
+    const quizList = quizzesData.quizzes;
+
+    const isEnd =  Math.ceil(quizzesData.columns / 10) == prop.page;
+
+    return {quizList, isEnd};
 }
