@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector("#nav-menu-toggle").addEventListener("click", () => {
