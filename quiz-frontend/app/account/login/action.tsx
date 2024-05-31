@@ -16,7 +16,7 @@ const LoginAction = async (formData:FormData) => {
         const res = await fetch(url, {
             method: "POST",
             headers: {
-            "Content-type": "application/json"
+                "Content-type": "application/json"
             },
             body: JSON.stringify({
             username: formData.get("username"),
