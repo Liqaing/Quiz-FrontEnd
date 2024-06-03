@@ -1,6 +1,6 @@
 'use client';
 
-import { FetchQuiz } from "@/app/actions";
+import { FetchQuiz } from "@/utils/Actions/Home/quiz-actions";
 import Link from "next/link";
 import { useDebugValue, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";

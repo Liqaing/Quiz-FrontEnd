@@ -1,8 +1,7 @@
 'use server';
 
-import { FindAll } from "@/lib/quiz/quiz-api";
-import { requestAsyncStorage } from "next/dist/client/components/request-async-storage-instance";
-import { cookies, headers } from "next/headers";
+import { FindAll } from "@/utils/API/quiz-api";
+import { cookies } from "next/headers";
 
 export async function FetchQuiz(prop: {page:Number}) {
     

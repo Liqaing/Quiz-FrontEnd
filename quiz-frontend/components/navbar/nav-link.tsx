@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import HandLogout from '@/utils/HandleLogout';
 import { useState } from "react";
 
-const NavLink = ({isUserLogin}: {isUserLogin:boolean} ) => {
+const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:string} ) => {
 
     // Retreive path name which user currently on
     const pathName = usePathname(); 

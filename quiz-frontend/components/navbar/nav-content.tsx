@@ -1,10 +1,12 @@
 import Link from "next/link"
 import NavLink from "./nav-link"
-import CheckLogin from "@/utils/CheckLogin";
+import CheckLogin from "@/utils/Actions/Auth/CheckLogin";
+import GetUserRole from "@/utils/Actions/Auth/GetUserRole";
 
-const NavBarContent = () => {        
+const NavBarContent = async () => {        
 
     const isUserLogin = CheckLogin();
+    const userRole = await GetUserRole();
 
     return (                
 
