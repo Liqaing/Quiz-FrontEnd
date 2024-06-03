@@ -3,7 +3,7 @@ import { fetchTable } from "@/utils/listdata"
 
 const page = () => {
   return (
-    <div>
+    <div className="w-[80%] mx-auto">
       <DataTable fetchTable={fetchTable}/>
     </div>
   )

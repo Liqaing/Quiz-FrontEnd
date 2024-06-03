@@ -14,7 +14,7 @@ export async function GetRole() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.json();
+        return await response.text();
     }
     catch (error) {
         console.error('An error occurred:', error);      
