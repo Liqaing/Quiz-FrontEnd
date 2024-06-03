@@ -6,7 +6,6 @@ import CheckLogin from "./CheckLogin";
 const GetUserRole = async () => {
     const isUserLogin = CheckLogin();
     if (isUserLogin) {
-        
         const role = await GetRole();
         return role;
     }

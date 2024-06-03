@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import HandLogout from "@/utils/Actions/Auth/HandleLogout";
 import { useState } from "react";
 
-const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:string} ) => {
+const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:string|undefined|false} ) => {
 
     // Retreive path name which user currently on
     const pathName = usePathname(); 
@@ -14,7 +14,6 @@ const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:string}
     const toggleDropdown = () => {
         setOpenDropdown(!openDropdown);
     }
-    console.log(openDropdown);
    
     return (             
         <>           
@@ -30,11 +29,12 @@ const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:string}
                             Manage 
                             <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                             </svg>
-                        </button>          
+                        </button>
                     }
                     {openDropdown && (
-                        <div id="dropdownNavbar" className="z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div id="dropdownNavbar" className="absolute z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                 <li>
                                     <Link href="admin/users" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">User</Link>
