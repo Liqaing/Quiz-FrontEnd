@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import CheckLogin from './CheckLogin';
 
 interface LoginData {
     username: string,
@@ -9,7 +10,12 @@ interface LoginData {
 }
 
 const LoginAction = async (formData:FormData) => {
-      
+    
+    const isUserLogin = CheckLogin();
+    if (isUserLogin) {
+        redirect("/");
+    }
+
     let data = null;
     try {
         const url = process.env.BASE_API_URL + "auth";

@@ -8,7 +8,6 @@ const GetUserRole = async () => {
     if (isUserLogin) {
         
         const role = await GetRole();
-        console.log("Role", role);
         return role;
     }
     return false

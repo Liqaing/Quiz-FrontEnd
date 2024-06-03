@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import CheckLogin from "./CheckLogin";
 
 interface RegisterData {
     username: string,
@@ -11,6 +12,11 @@ interface RegisterData {
 
 const SignUpAction = async (formData:any) => {
     
+    const isUserLogin = CheckLogin();
+    if (isUserLogin) {
+        redirect("/");
+    }
+
     const registerData: RegisterData = {
         username: formData.get("username") as string,
         email: formData.get("email") as string,

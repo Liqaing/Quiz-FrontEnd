@@ -1,9 +1,16 @@
 
 import Link from "next/link";
 import SignUpForm from "./form";
+import CheckLogin from "@/utils/Actions/Auth/CheckLogin";
+import { redirect } from "next/navigation";
 
 const SignUp = () => {   
     
+    const isUserLogin = CheckLogin();
+    if (isUserLogin) {
+        redirect("/");
+    }
+
     return (
         <section className="h-full bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-12 mx-auto h-full">                
