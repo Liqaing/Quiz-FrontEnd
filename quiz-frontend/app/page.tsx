@@ -1,6 +1,6 @@
 import Quizzes from "@/components/quiz/quiz";
 import AllQuiz from "@/components/quiz/quiz";
-import { FetchQuiz } from "./actions";
+import { FetchQuiz } from "../utils/Actions/Home/quiz-actions";
 
 export default async function home() {
       

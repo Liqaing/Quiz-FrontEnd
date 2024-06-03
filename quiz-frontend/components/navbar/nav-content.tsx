@@ -1,13 +1,14 @@
 import Link from "next/link"
 import NavLink from "./nav-link"
-import CheckLogin from "@/utils/CheckLogin";
+import CheckLogin from "@/utils/Actions/Auth/CheckLogin";
+import GetUserRole from "@/utils/Actions/Auth/GetUserRole";
 
-const NavBarContent = () => {        
+const NavBarContent = async () => {        
 
     const isUserLogin = CheckLogin();
+    const userRole = await GetUserRole();
 
-    return (                
-
+    return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -21,7 +22,7 @@ const NavBarContent = () => {
                     </svg>
                 </button>
                 <div className={`w-full hidden md:block md:w-auto`} id="navbar-menu">
-                    <NavLink isUserLogin={isUserLogin}></NavLink>
+                    <NavLink isUserLogin={isUserLogin} userRole={userRole}></NavLink>
                 </div>
             </div>
             <script type="text/javascript" src="/scripts/menu-toggle.js"></script>

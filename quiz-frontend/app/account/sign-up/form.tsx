@@ -1,4 +1,4 @@
-import SignUpAction from "./action";
+import SignUpAction from "../../../utils/Actions/Auth/Signup-action";
 import FormSubmit from "./form-submit";
 
 const SignUpForm = () => {
