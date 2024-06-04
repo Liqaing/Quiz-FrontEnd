@@ -1,5 +1,6 @@
-import DataTable from "@/components/Table/user/DataTable";
-import { fetchTable } from "@/utils/API/users/table/fetch-users";
+import DataTable from "@/components/Table/quiz/DataTable";
+import { fetchTable } from "@/utils/API/quiz/table/fetch-quiz";
+
 
 export default function User() {
     

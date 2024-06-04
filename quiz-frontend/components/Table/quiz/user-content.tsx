@@ -1,19 +1,23 @@
-import { quizzesResponse } from "@/utils/data"
 
-const Content = (props: {data: quizzesResponse | null}) => {
+const UserContent = (props: {data:any}) => {
   return (
     <div className="flex flex-col gap-2 px-1">
       {
-        props.data?.map((d, index)=> {
+        props.data?.map((d:any, index:any)=> {
           const date = new Date(d.createdAt)
           return (
-            <div key={index} className="w-full py-2 px-4 dark:bg-slate-600 bg-slate-700 text-white rounded-lg flex items-center">
+            <div key={index} className="w-full py-2 px-4 rounded-lg flex items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="w-1/2">
-                <strong>{d.name}</strong>
-                <div>
+                <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
+                <small>
                   Description : &nbsp;
                   {d.description}
-                </div>
+                </small>
+                <br></br>
+                <small>
+                  Visibility : &nbsp;
+                  {d.visibility}
+                </small>
               </div>
               <div className="w-1/2 text-end ">
                 Created : &nbsp;
@@ -27,4 +31,4 @@ const Content = (props: {data: quizzesResponse | null}) => {
   )
 }
 
-export default Content
+export default UserContent

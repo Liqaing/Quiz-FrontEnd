@@ -4,12 +4,12 @@ import Pagination from "@/components/Table/Pagination"
 import { useEffect, useRef, useState } from "react"
 import Order from "@/components/Table/Order"
 import PageSize from "@/components/Table/PageSize"
-import Content from "./Content"
-import { order, orderByQuiz, pageSize, quizzesResponse, tableResponse } from "@/utils/data"
+import { order, orderBy, pageSize, DataResponse, tableResponse} from "@/utils/API/users/table/data"
+import UserContent from "./user-content"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
-  const [data, setData] = useState<quizzesResponse | null>(null);
+  const [data, setData] = useState<DataResponse | null>(null);
   const [page, setPage] = useState<number>(0);
   const [column, setColumn] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
@@ -82,7 +82,7 @@ const DataTable = (props: {fetchTable: Function}) => {
     try {
       const res: tableResponse|null = await props.fetchTable({
         search: search,
-        orderBy: orderByQuiz.NAME,
+        orderBy: orderBy.NAME,
         order: orderSort,
         page: page,
         size: size,
@@ -98,15 +98,15 @@ const DataTable = (props: {fetchTable: Function}) => {
   }
 
   return (
-    <div className="h-full w-full flex flex-col justify-between items-center">
-        <div className="w-full flex justify-end px-4 py-2 gap-2 sm:gap-4">
+    <div className="h-full w-full flex flex-col justify-between items-center gap-2">
+        <div className="w-full flex justify-end py-2 px-1 gap-2 sm:gap-4">
             <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
             <Order orderSortFunc={orderSortFunc} />
             <Search searchPage={searchPage} />
         </div>
 
-        <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh] px-1">
-            <Content data={data}/>
+        <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">
+            <UserContent data={data}/>
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>

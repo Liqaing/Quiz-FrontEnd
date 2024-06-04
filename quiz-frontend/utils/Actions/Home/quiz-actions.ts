@@ -1,6 +1,6 @@
 'use server';
 
-import { FindAll } from "@/utils/API/quiz-api";
+import { FindAll } from "@/utils/API/quiz/quiz-api";
 import { cookies } from "next/headers";
 
 export async function FetchQuiz(prop: {page:Number}) {
