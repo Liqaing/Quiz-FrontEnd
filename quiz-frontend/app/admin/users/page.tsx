@@ -4,7 +4,7 @@ export default function User() {
     
     return (
         <div>
-            <DataTable fetchTable={}/>
+            {/* <DataTable fetchTable={}/> */}
         </div>
     )
 }
