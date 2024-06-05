@@ -6,6 +6,7 @@ import Order from "@/components/Table/Order"
 import PageSize from "@/components/Table/PageSize"
 import { order, orderBy, pageSize, DataResponse, tableResponse} from "@/utils/API/users/table/data"
 import UserContent from "./user-content"
+import Link from "next/link"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
@@ -99,10 +100,15 @@ const DataTable = (props: {fetchTable: Function}) => {
 
   return (
     <div className="h-full w-full flex flex-col justify-between items-center gap-2">
-        <div className="w-full flex justify-end py-2 px-1 gap-2 sm:gap-4">
-            <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
-            <Order orderSortFunc={orderSortFunc} />
-            <Search searchPage={searchPage} />
+        <div className="w-full flex justify-between py-2 px-1 gap-2 sm:gap-4">
+            <div className="flex gap-3">
+                <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
+                <Link href="/admin/user/add" className="dark:text-white bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-2">Add</Link>
+            </div>
+            <div className="flex gap-3">
+              <Order orderSortFunc={orderSortFunc} />
+              <Search searchPage={searchPage} />
+            </div>           
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">

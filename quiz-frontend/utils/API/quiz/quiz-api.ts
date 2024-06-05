@@ -22,7 +22,7 @@ export async function FindAll(prop: {page:Number, reqHeaders:Headers}) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.json();
+        return await response   .json();
     }
     catch (error) {
         console.error('An error occurred:', error);      
