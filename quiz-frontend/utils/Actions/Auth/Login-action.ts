@@ -3,17 +3,27 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import CheckLogin from './CheckLogin';
+import { isEmpty } from '@/utils/utils';
 
 interface LoginData {
     username: string,
     password: string, 
 }
 
-const LoginAction = async (formData:FormData) => {
+const LoginAction = async (currentState: {message: string}, formData: FormData) => {
     
     const isUserLogin = CheckLogin();
     if (isUserLogin) {
         redirect("/");
+    }
+
+    const username = formData.get("username");
+    const password = formData.get("password")
+
+    if (isEmpty(username) || isEmpty(password)) {
+        return {
+            message: "Please input username and password for login"
+        };
     }
 
     let data = null;
@@ -25,22 +35,23 @@ const LoginAction = async (formData:FormData) => {
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-            username: formData.get("username"),
-            password: formData.get("password") 
+            username: username,
+            password: password
             }),
-    })
+        });
         if(res.ok) {
-            data = await res.text()
-            console.log(data);            
+            data = await res.text();
             cookies().set("quiz-session", data, { httpOnly: true });
+            redirect("/");
         }
-    } catch (error) {
-        console.log(error);
+    } 
+    catch (error) {        
+        console.log("err", error);
+        return {
+            message: "error"
+        };
     }
     
-    if(data !== null) {
-        redirect("/");
-    }
 
 }
 
