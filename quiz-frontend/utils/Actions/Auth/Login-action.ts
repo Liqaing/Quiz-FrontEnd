@@ -44,6 +44,11 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
             cookies().set("quiz-session", data, { httpOnly: true });
             redirect("/");
         }
+        else if (res.status == 401) {
+            return {
+                message: "Username and password is incorrect"
+            };
+        }
     } 
     catch (error) {        
         console.log("err", error);
