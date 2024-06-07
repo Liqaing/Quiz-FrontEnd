@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import CheckLogin from "./CheckLogin";
+import { isEmpty } from "@/utils/utils";
 
 interface RegisterData {
     username: string,
@@ -10,21 +11,30 @@ interface RegisterData {
     role:string
 }
 
-const SignUpAction = async (formData:any) => {
+const SignUpAction = async (formState: {message: string}, formData:any) => {
     
     const isUserLogin = CheckLogin();
     if (isUserLogin) {
         redirect("/");
     }
 
-    const registerData: RegisterData = {
-        username: formData.get("username") as string,
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-        role: formData.get("role") as string
-    }
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirm-password") as string;
+    const role = formData.get("role") as string;
+    
+    if (isEmpty(username) || isEmpty(password) || isEmpty(email) || isEmpty(confirmPassword) || isEmpty(role)) {
+        return {
+            message: "Invalid input, please fill the form accordingly"
+        };
+    }    
 
-    // console.log(JSON.stringify(registerData))
+    if (password != confirmPassword) {
+        return {
+            message: "Confirmed password not matched"
+        };
+    }
 
     const response = await fetch('https://quiz-uy6f.onrender.com/register', {
         method: 'POST',
@@ -32,10 +42,10 @@ const SignUpAction = async (formData:any) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            "username": registerData.username,
-            "email": registerData.email,
-            "password": registerData.password,
-            "role": registerData.role
+            "username": username,
+            "email": email,
+            "password": password,
+            "role": role
         })
     });
 

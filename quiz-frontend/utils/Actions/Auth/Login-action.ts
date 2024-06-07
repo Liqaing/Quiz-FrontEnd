@@ -22,7 +22,7 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
 
     if (isEmpty(username) || isEmpty(password)) {
         return {
-            message: "Please input username and password for login"
+            message: "Invalid input, please fill the form accordingly"
         };
     }
 

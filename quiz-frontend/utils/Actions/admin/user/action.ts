@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import CheckLogin from "../../Auth/CheckLogin";
 import GetUserRole from "../../Auth/GetUserRole";
 import { cookies } from "next/headers";
+import { isEmpty } from "@/utils/utils";
 
 interface AddUserData {
     username: string,
@@ -12,24 +13,28 @@ interface AddUserData {
     role:string
 }
 
-const AddUserAction = async (formData:any) => {
-    let data = null;
+const AddUserAction = async (formState: {message: string}, formData:any) => {
+
     try {
         const isUserLogin = CheckLogin();
         if (isUserLogin) {
-            redirect("/");
+            redirect("/login");
         }
 
         const userRole = await GetUserRole() as string;
         if (userRole != "ADMIN") {
             redirect("/");
         }
-
-        const addUserData: AddUserData = {
-            username: formData.get("username") as string,
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
-            role: formData.get("role") as string
+        
+        const username = formData.get("username") as string;
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const role = formData.get("role") as string;
+        
+        if (isEmpty(role) || isEmpty(username) || isEmpty(email) || isEmpty(password)) {
+            return {
+                message: "Invalid input, please fill the form accordingly"
+            };
         }
         
         const url = process.env.BASE_API_URL + "api/user/create";
@@ -38,19 +43,26 @@ const AddUserAction = async (formData:any) => {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(addUserData),
+            body: JSON.stringify({
+                "username": username,
+                "email": email,
+                "password": password,
+                "role": role
+            }),
         })
         if(res.ok) {
-            data = await res.text()                        
+            const data = await res.text()                        
+            if(data === "success") {
+                redirect("/admin/user")
+            }
         }
-
-    } catch (error) {
-        console.log(error);
+    }
+    catch (error: any) {
+        return {
+            message: error.message  
+        };
     }
     
-    if(data === "success    ") {
-        redirect("/admin/user")
-    }       
 }
 
-export default AddUserAction
+export default AddUserAction;
