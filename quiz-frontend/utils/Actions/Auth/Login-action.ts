@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import CheckLogin from './CheckLogin';
 import { isEmpty } from '@/utils/utils';
+import DeleteCookie from './DeleteCookie';
 
 interface LoginData {
     username: string,
@@ -24,7 +25,7 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
         return {
             message: "Invalid input, please fill the form accordingly"
         };
-    }
+    }   
 
     let data = null;
     try {
@@ -40,9 +41,12 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
             }),
         });
         if(res.ok) {
-            data = await res.text();
-            cookies().set("quiz-session", data, { httpOnly: true });
-            redirect("/");
+            data = await res.json();            
+            cookies().set({
+                name: "quiz-session",
+                value: JSON.stringify(data)
+            });            
+
         }
         else if (res.status == 401) {
             return {
@@ -52,12 +56,11 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
     } 
     catch (error) {        
         console.log("err", error);
-        return {
-            message: "error"
-        };
+        DeleteCookie();
+        throw new Error;
     }
     
-
+    redirect("/");
 }
 
 export default LoginAction;

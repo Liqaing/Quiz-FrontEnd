@@ -1,5 +1,5 @@
 
-export async function FindAll(prop: {page:Number, reqHeaders:Headers}) {
+export async function FindAll(prop: {page:Number, reqHeaders:any}) {
     
     const url = new URL(`${process.env.BASE_API_URL}api/quiz/findAll` as string);
     const searchParams = new URLSearchParams(
@@ -14,7 +14,7 @@ export async function FindAll(prop: {page:Number, reqHeaders:Headers}) {
     url.search = searchParams.toString();  
 
     try {
-        const response = await fetch(url.href, {
+        const response = await fetch(url.href, {    
             method: "GET",
             headers: prop.reqHeaders
         });
@@ -22,10 +22,10 @@ export async function FindAll(prop: {page:Number, reqHeaders:Headers}) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response   .json();
+        return await response.json();
     }
     catch (error) {
-        console.error('An error occurred:', error);      
+        console.error('An error occurred:', error);
     } 
     
 }

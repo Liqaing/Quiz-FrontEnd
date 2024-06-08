@@ -87,13 +87,13 @@ const DataTable = (props: {fetchTable: Function}) => {
         page: page,
         size: size,
       });
-      console.log(page);
       if(res != null) {
         setData(res.quizzes);
         setColumn(res.columns);
       }
     } catch (e) {
       console.log(e);
+      throw new Error;
     }
   }
 

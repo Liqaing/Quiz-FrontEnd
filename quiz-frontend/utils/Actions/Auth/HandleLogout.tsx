@@ -2,9 +2,10 @@
 
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
+import DeleteCookie from "./DeleteCookie";
 
 const HandLogout = () => {
-    cookies().delete("quiz-session");
+    DeleteCookie();
     redirect("/account/login");
 }
 

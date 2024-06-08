@@ -17,6 +17,7 @@ interface Quiz {
 
 const Quizzes = (prop: {quizList:Quiz[], isEnd:boolean}) => {
     
+  try {
     const [quizzes, setQuizList] = useState(prop.quizList);
     const [isEnd, setIsEnd] = useState(prop.isEnd);
     const [page, setPage] = useState(0); 
@@ -76,6 +77,11 @@ const Quizzes = (prop: {quizList:Quiz[], isEnd:boolean}) => {
           </div>
         </>
     )
+  }
+  catch (error) {
+    console.log("err", error);
+    throw new Error;
+  }
 }
   
 export default Quizzes;
