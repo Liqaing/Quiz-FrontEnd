@@ -1,6 +1,5 @@
-import CheckLogin from "@/utils/Actions/Auth/CheckLogin";
-import CustomFetch from "../CustomFetch";
-import RefreshToken from "@/utils/Actions/Auth/RefreshToken";
+"use server"
+import { customFetch } from "@/utils/API/CustomFetch";
 
 export async function FindAll(prop: {page:Number}) {
     
@@ -18,14 +17,8 @@ export async function FindAll(prop: {page:Number}) {
 
     try {
 
-        let response = await CustomFetch(url.href, "GET", null);
+        const response = await customFetch(url.href, "GET", null);
 
-        // Refresh token in server action as tempoary solution
-        if (response.status == 401 && CheckLogin()) {
-            await RefreshToken(); 
-            response = await CustomFetch(url.href, "GET", null);
-        }
-        
         if (!response) {
             throw new Error("Something went wrong");
         }
@@ -33,6 +26,6 @@ export async function FindAll(prop: {page:Number}) {
     }
     catch (error:any) {
         throw new Error(error?.message);
-    } 
+    }
     
 }

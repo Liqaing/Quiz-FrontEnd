@@ -1,6 +1,6 @@
 'use server'
 
-import CustomFetch from "../../CustomFetch";
+import { customFetch } from "@/utils/API/CustomFetch";
 import { dataTable, tableResponse } from "./data";
 import GetHeader from "@/utils/Actions/Auth/GetHeader";
 
@@ -16,7 +16,7 @@ export async function fetchTable(data: dataTable) {
 
     // const headers = await GetHeader();
 
-    const res = await CustomFetch(url.href, "GET", null);
+    const res = await customFetch(url.href, "GET", null);
     
     // fetch(url.href, {
     //   method: "GET",

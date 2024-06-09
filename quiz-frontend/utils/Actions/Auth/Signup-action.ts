@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import CheckLogin from "./CheckLogin";
 import { isEmpty } from "@/utils/utils";
 import DeleteCookie from "./DeleteCookie";
-import CustomFetch from "@/utils/API/CustomFetch";
 
 interface RegisterData {
     username: string,
@@ -46,7 +45,16 @@ const SignUpAction = async (formState: {message: string}, formData:any) => {
             "password": password,
             "role": role
         })
-        const res = await CustomFetch(url, "POST", body);
+        const res = await fetch(
+            url,
+            {
+                headers: {
+                    'Content-type': "application/json"
+                },
+                method: "POST",
+                body: body
+            }
+        );
         if (!res) {
             throw new Error("Something went wrong");
         }       

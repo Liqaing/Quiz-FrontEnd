@@ -90,7 +90,7 @@ const DataTable = (props: {fetchTable: Function}) => {
       });
       console.log(page);
       if(res != null) {
-        setData(res.quizzes);
+        setData(res.data);
         setColumn(res.columns);
       }
     } catch (e) {

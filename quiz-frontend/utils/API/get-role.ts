@@ -1,15 +1,11 @@
-import GetHeader from "../Actions/Auth/GetHeader";
+import { customFetch } from "./CustomFetch";
 
 export async function GetRole() {
     
     const url = new URL(`${process.env.BASE_API_URL}api/role` as string);
-    const headers = await GetHeader();    
 
     try {
-        const response = await fetch(url.href, {
-            method: "GET",
-            headers: headers
-        });
+        const response = await customFetch(url.href,"GET",null);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

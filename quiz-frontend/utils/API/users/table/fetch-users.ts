@@ -1,7 +1,7 @@
 'use server'
 
+import { customFetch } from "@/utils/API/CustomFetch";
 import { dataTable, tableResponse } from "./data";
-import GetHeader from "@/utils/Actions/Auth/GetHeader";
 
 export async function fetchTable(data: dataTable) {
 
@@ -13,20 +13,15 @@ export async function fetchTable(data: dataTable) {
     url.searchParams.append("page", data.page);
     url.searchParams.append("size", data.size);
 
-    const headers = await GetHeader();
-
-    const res = await fetch(url.href, {
-      method: "GET",
-      headers: headers
-    })
+    const res = await customFetch(url.href, "GET", null);
     
     if(res.ok) {
       const user: tableResponse | null = await res.json()
       return user;
     }
+    throw new Error("No Users");
   } catch (error) {
     console.log(error);
     throw new Error("something went wrong");
   }
-  return null;
 }

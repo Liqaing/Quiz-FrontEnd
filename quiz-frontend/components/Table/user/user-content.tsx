@@ -6,7 +6,7 @@ const UserContent = (props: {data:any}) => {
         props.data?.map((d:any, index:any)=> {
           const date = new Date(d.createdAt)
           return (
-            <div key={index} className="w-full py-2 px-4 rounded-lg flex items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} className="w-full py-2 px-4 flex items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="w-1/2">
                 <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
                 <small>

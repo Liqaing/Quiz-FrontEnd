@@ -3,18 +3,11 @@
 import { redirect } from "next/navigation";
 import CheckLogin from "../../Auth/CheckLogin";
 import GetUserRole from "../../Auth/GetUserRole";
-import { cookies } from "next/headers";
 import { isEmpty } from "@/utils/utils";
-import CustomFetch from "@/utils/API/CustomFetch";
+import { customFetch } from "@/utils/API/CustomFetch";
 
-interface AddUserData {
-    username: string,
-    password: string,
-    email:string,
-    role:string
-}
 
-const AddUserAction = async (formState: {message: string}, formData:any) => {
+const AddUserAction = async (formData: FormData) => {
 
     try {
         const isUserLogin = CheckLogin();
@@ -45,19 +38,11 @@ const AddUserAction = async (formState: {message: string}, formData:any) => {
             "password": password,
             "role": role
         });
+        console.log(body)
+        const res = await customFetch(url, "POST", body); 
         
-        const res = await CustomFetch(url, "POST", body); 
-        
-        // fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-type": "application/json"
-        //     },
-        //     body: ,
-        // })
-
         if(res.ok) {
-            const data = await res.text()                        
+            const data = await res.text()
             if(data === "success") {
                 redirect("/admin/user")
             }

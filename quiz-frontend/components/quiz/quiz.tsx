@@ -1,8 +1,7 @@
 'use client';
 
-import { FetchQuiz } from "@/utils/Actions/Home/quiz-actions";
 import Link from "next/link";
-import { useDebugValue, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface Quiz {
@@ -13,24 +12,36 @@ interface Quiz {
     createdAt: Date,
     updatedAt: Date,
   }
-  
 
-const Quizzes = (prop: {quizList:Quiz[], isEnd:boolean}) => {
-  const [quizzes, setQuizList] = useState(prop.quizList);
-  const [isEnd, setIsEnd] = useState(prop.isEnd);
-  const [page, setPage] = useState(0); 
+
+const Quizzes = (prop: {FetchQuiz: Function}) => {
+ 
+
+  const [quizzes, setQuizList] = useState<Quiz[]|undefined>();
+  const [isEnd, setIsEnd] = useState<boolean>();
+  const [page, setPage] = useState(0);
   const [ref, inView] = useInView();
+
+  const first = async () => {
+    const data = await prop.FetchQuiz({page: 0});
+    console.log(data);
+    setIsEnd(data.isEnd)
+    setQuizList(data.quizList)
+  }
+  useEffect(() => { 
+    first();
+  }, [])
+  
 
   // Request more quizz from server and append to quizList
   async function loadMoreQuiz() {
     const next = page + 1;
-    const quizzes = await FetchQuiz({page:next});
-    
+    const quizzes = await prop.FetchQuiz({page:next});
     setIsEnd(quizzes.isEnd);
 
     if (quizzes.quizList?.length) {
       setPage(next);
-      setQuizList((prev: Quiz[]) => [
+      setQuizList((prev: Quiz[] | undefined) => [
         ...(prev?.length ? prev: []),
         ...quizzes.quizList
       ])

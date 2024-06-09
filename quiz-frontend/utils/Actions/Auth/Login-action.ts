@@ -1,11 +1,11 @@
 "use server";
 
 import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import CheckLogin from './CheckLogin';
 import { isEmpty } from '@/utils/utils';
 import DeleteCookie from './DeleteCookie';
-import CustomFetch from '@/utils/API/CustomFetch';
+import { tokenResponse } from '@/utils/definition'
 
 interface LoginData {
     username: string,
@@ -29,7 +29,6 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
         };
     }   
 
-    let data = null;
     try {
         const url = process.env.BASE_API_URL + "auth";  
         const body = JSON.stringify({
@@ -37,19 +36,27 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
             password: password
         });
 
-        const res = await CustomFetch(url, "POST", body);
-        if (res) {
-            if(res.ok) {
-                data = await res.json();  
-                          
-                cookies().set("quiz-session", data.accessToken, { httpOnly: true });
-                cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });
+        const res = await fetch(
+            url,
+            {
+                method: "POST",
+                headers: {
+                    'Content-type' : "application/json"
+                },
+                body: body
             }
-            else if (res.status == 401) {
-                return {
-                    message: "Username and password is incorrect"
-                };
-            }
+        );
+        console.log(url);
+        if(res.ok) {
+            const data: tokenResponse = await res.json();
+            console.log(data);
+            cookies().set("quiz-session", data.accessToken, { httpOnly: true });
+            cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });
+        }
+        else if (res.status == 401) {
+            return {
+                message: "Username and password is incorrect"
+            };
         }
 
     } 
