@@ -1,44 +1,71 @@
-"use server"
-import { cookies, headers } from "next/headers";
-import GetHeader from "../Actions/Auth/GetHeader"
-import RefreshToken from "../Actions/Auth/RefreshToken";
-import CheckLogin from "../Actions/Auth/CheckLogin";
-import { UserCookies } from "../data";
+import { cookies } from "next/headers";
+import { tokenResponse } from "@/utils/definition";
 
-export default async function CustomFetch(url:string, method:string, body:any) {
-
-    try {
-        
-        let res = await MakeReq(url, method, body);
-
-        if (!res.ok && await CheckLogin()) {
-        
-            // Try to refresh token
-            // await RefreshToken();
-            const response = await fetch(process.env.MY_URL + '/api/refresh');
-            if (!response.ok) {
-                throw new Error("Something went wrong");
-            }
-            // new requst after refresh
-            res = await MakeReq(url, method, body);
-        }    
-        
-        return res;
-    }    
-    catch (error: any) {
-        throw new Error(error?.message);
+export async function customFetch(url: string, method: string, body: any) {
+  const accessToken = "Bearer " + cookies().get("quiz-session")?.value
+  const res = await fetch(
+    url,
+    {
+      method: method,
+      headers: { 
+        "Content-type": "application/json",
+        Authorization : accessToken
+      },
+      body: body
     }
-}
-
-async function MakeReq(url:string, method:string, body:any) {
-    const reqHeaders = await GetHeader();
-    const response = await fetch(
-        url,    
-        {
-            method: method,
-            headers: reqHeaders,
-            body: body
+  )
+  if(!res.ok) {
+    const role = await fetch(
+      process.env.MY_URL + "/api/role",
+      {
+        method: "GET",
+        headers: { 
+          "Content-type": "application/json",
+          Authorization : accessToken
         }
-    );
-    return response;
+      }
+    )
+    if(role.ok) {
+      throw new Error("Something Went Wrong, " + res.statusText);
+    }
+    else {
+      const refreshToken = "Bearer " + cookies().get("quiz-session-refresh")?.value;
+      const token = await fetch(
+        process.env.MY_URL + "refreshToken",
+        {
+          method: "POST",
+          headers: {
+            Authorization : refreshToken
+          }
+        }
+      )
+      if(token.ok) {
+        const data: tokenResponse = await token.json();
+        console.log(data);
+        cookies().set("quiz-session", data.accessToken, { httpOnly: true });
+        cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });
+        
+        const newRes = await fetch(
+          url,
+          {
+            method: method,
+            headers: { 
+              "Content-type": "application/json",
+              Authorization : "Bearer " + data.accessToken
+            },
+            body: body
+          }
+        )
+        if(newRes.ok) {
+          return newRes;
+        }else {
+          throw new Error("Something Went Wrong, " + newRes.status)
+        }
+      }
+      else {
+        throw new Error("Something Went Wrong, Can't Refresh Token");
+      }
+    }
+  }
+  return res;
 }

@@ -1,7 +1,7 @@
 'use server'
 
 import { cookies } from "next/headers";
-import { dataTable, tableResponse } from "./data";
+import { dataTable, tableResponse } from "@/utils/definition";
 
 
 

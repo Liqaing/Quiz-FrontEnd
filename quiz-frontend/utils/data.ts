@@ -10,7 +10,3 @@ export const order = {
 }
 
 
-export type UserCookies = {
-  refreshToken: string;
-  accessToken: string;
-};
