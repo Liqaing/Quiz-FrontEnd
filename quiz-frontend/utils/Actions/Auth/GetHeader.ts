@@ -1,10 +1,7 @@
 "use server"
+import { UserCookies } from "@/utils/data";
 import { cookies } from "next/headers";
 
-export type UserCookies = {
-    refreshToken: string;
-    accessToken: string;
-  };
 
 export default async function GetHeader() {
     const reqHeaders = new Headers();
@@ -14,8 +11,9 @@ export default async function GetHeader() {
     const userCookies = cookies().get("quiz-session")?.value;  
     
     if (userCookies != null) {
-        const cookieData = JSON.parse(userCookies) as UserCookies;
-        reqHeaders.append("Authorization", "Bearer " + String(cookieData.accessToken));    
+        // const cookieData = JSON.parse(userCookies) as UserCookies;
+        reqHeaders.append("Authorization", "Bearer " + String(userCookies));    
         return reqHeaders;
     }
+    return reqHeaders;
 } 

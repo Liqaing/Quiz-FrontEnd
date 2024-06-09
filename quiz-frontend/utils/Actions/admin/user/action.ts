@@ -5,6 +5,7 @@ import CheckLogin from "../../Auth/CheckLogin";
 import GetUserRole from "../../Auth/GetUserRole";
 import { cookies } from "next/headers";
 import { isEmpty } from "@/utils/utils";
+import CustomFetch from "@/utils/API/CustomFetch";
 
 interface AddUserData {
     username: string,
@@ -38,18 +39,23 @@ const AddUserAction = async (formState: {message: string}, formData:any) => {
         }
         
         const url = process.env.BASE_API_URL + "api/user/create";
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                "username": username,
-                "email": email,
-                "password": password,
-                "role": role
-            }),
-        })
+        const body = JSON.stringify({
+            "username": username,
+            "email": email,
+            "password": password,
+            "role": role
+        });
+        
+        const res = await CustomFetch(url, "POST", body); 
+        
+        // fetch(url, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-type": "application/json"
+        //     },
+        //     body: ,
+        // })
+
         if(res.ok) {
             const data = await res.text()                        
             if(data === "success") {

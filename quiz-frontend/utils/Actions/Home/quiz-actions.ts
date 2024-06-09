@@ -3,14 +3,12 @@
 import { FindAll } from "@/utils/API/quiz/quiz-api";
 import { cookies } from "next/headers";
 import GetHeader from "../Auth/GetHeader";
+import RefreshToken from "../Auth/RefreshToken";
 
 export async function FetchQuiz(prop: {page:Number}) {
     
-    try {        
-        // Retreive jwt bearer from cookie
-        const reqHeaders = await GetHeader();
-
-        const quizzes = await FindAll({page: prop.page, reqHeaders});
+    try {
+        const quizzes = await FindAll({page: prop.page});
         
         const quizzesData = JSON.parse(JSON.stringify(quizzes));
         const quizList = quizzesData.data;
@@ -19,6 +17,7 @@ export async function FetchQuiz(prop: {page:Number}) {
         return {quizList, isEnd};
     }
     catch (error: any) {
+        console.log("err", error)
         throw new Error(error?.message);
     }
 }

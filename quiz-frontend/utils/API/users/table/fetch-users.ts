@@ -19,6 +19,7 @@ export async function fetchTable(data: dataTable) {
       method: "GET",
       headers: headers
     })
+    
     if(res.ok) {
       const user: tableResponse | null = await res.json()
       return user;

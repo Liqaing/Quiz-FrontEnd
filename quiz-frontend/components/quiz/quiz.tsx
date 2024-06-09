@@ -16,29 +16,28 @@ interface Quiz {
   
 
 const Quizzes = (prop: {quizList:Quiz[], isEnd:boolean}) => {
+  const [quizzes, setQuizList] = useState(prop.quizList);
+  const [isEnd, setIsEnd] = useState(prop.isEnd);
+  const [page, setPage] = useState(0); 
+  const [ref, inView] = useInView();
+
+  // Request more quizz from server and append to quizList
+  async function loadMoreQuiz() {
+    const next = page + 1;
+    const quizzes = await FetchQuiz({page:next});
     
-  try {
-    const [quizzes, setQuizList] = useState(prop.quizList);
-    const [isEnd, setIsEnd] = useState(prop.isEnd);
-    const [page, setPage] = useState(0); 
-    const [ref, inView] = useInView();
+    setIsEnd(quizzes.isEnd);
 
-    // Request more quizz from server and append to quizList
-    async function loadMoreQuiz() {
-      const next = page + 1;
-      const quizzes = await FetchQuiz({page:next});
-      
-      setIsEnd(quizzes.isEnd);
-
-      if (quizzes.quizList?.length) {
-        setPage(next);
-        setQuizList((prev: Quiz[]) => [
-          ...(prev?.length ? prev: []),
-          ...quizzes.quizList
-        ])
-      }
+    if (quizzes.quizList?.length) {
+      setPage(next);
+      setQuizList((prev: Quiz[]) => [
+        ...(prev?.length ? prev: []),
+        ...quizzes.quizList
+      ])
     }
+  }
 
+  try {  
     // Call loadMoreQuiz function whenever spinning come into view
     useEffect(() => {
       if (inView) {

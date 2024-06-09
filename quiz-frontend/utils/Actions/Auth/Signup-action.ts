@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import CheckLogin from "./CheckLogin";
 import { isEmpty } from "@/utils/utils";
 import DeleteCookie from "./DeleteCookie";
+import CustomFetch from "@/utils/API/CustomFetch";
 
 interface RegisterData {
     username: string,
@@ -38,23 +39,28 @@ const SignUpAction = async (formState: {message: string}, formData:any) => {
             };
         }
 
-        const response = await fetch('https://quiz-uy6f.onrender.com/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "username": username,
-                "email": email,
-                "password": password,
-                "role": role
-            })
-        });        
+        const url = process.env.BASE_API_URL + "register";
+        const body = JSON.stringify({
+            "username": username,
+            "email": email,
+            "password": password,
+            "role": role
+        })
+        const res = await CustomFetch(url, "POST", body);
+        if (!res) {
+            throw new Error("Something went wrong");
+        }       
+    
+        if (res.status == 400) {
+            return {
+                message: res.text()
+            };
+        }
     }
-    catch(error) {
+    catch(error: any) {
         console.log("err", error);
         DeleteCookie();
-        throw new Error;
+        throw new Error(error?.message);
     }
 
     redirect("/account/login");

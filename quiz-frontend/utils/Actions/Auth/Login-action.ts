@@ -5,11 +5,13 @@ import { cookies } from 'next/headers'
 import CheckLogin from './CheckLogin';
 import { isEmpty } from '@/utils/utils';
 import DeleteCookie from './DeleteCookie';
+import CustomFetch from '@/utils/API/CustomFetch';
 
 interface LoginData {
     username: string,
     password: string, 
 }
+
 
 const LoginAction = async (currentState: {message: string}, formData: FormData) => {
     
@@ -29,35 +31,32 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
 
     let data = null;
     try {
-        const url = process.env.BASE_API_URL + "auth";
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
+        const url = process.env.BASE_API_URL + "auth";  
+        const body = JSON.stringify({
             username: username,
             password: password
-            }),
         });
-        if(res.ok) {
-            data = await res.json();            
-            cookies().set({
-                name: "quiz-session",
-                value: JSON.stringify(data)
-            });            
 
+        const res = await CustomFetch(url, "POST", body);
+        if (res) {
+            if(res.ok) {
+                data = await res.json();  
+                          
+                cookies().set("quiz-session", data.accessToken, { httpOnly: true });
+                cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });
+            }
+            else if (res.status == 401) {
+                return {
+                    message: "Username and password is incorrect"
+                };
+            }
         }
-        else if (res.status == 401) {
-            return {
-                message: "Username and password is incorrect"
-            };
-        }
+
     } 
-    catch (error) {        
+    catch (error : any) {        
         console.log("err", error);
         DeleteCookie();
-        throw new Error;
+        throw new Error(error?.message);
     }
     
     redirect("/");
