@@ -11,9 +11,12 @@ const UserContent = (props: {data:any}) => {
                 <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
                 <div className="flex">
                   <small className="flex items-end" >
-                    <svg className="pb-2"  width="9" height="9" xmlns="http://www.w3.org/2000/svg">
+                    <div className="pb-1">
+                    <svg   width="9" height="9" xmlns="http://www.w3.org/2000/svg">
                       <circle  cx="4" cy="4" r="4" fill="blue" />
                     </svg>
+                    </div>
+                    
                     <span className="" text-anchor="end">
                       email : &nbsp;
                       {d.email}
