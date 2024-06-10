@@ -7,19 +7,15 @@ import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
 
 
-const AddUserAction = async (formData: FormData) => {
+const AddUserAction = async (currentState: {message: string}, formData: FormData) => {
 
-    try {
-        const isUserLogin = CheckLogin();
-        if (isUserLogin) {
-            redirect("/login");
-        }
+    let data = null;
+    const userRole = await GetUserRole() as string;
+    if (userRole != "ADMIN") {            
+        redirect("/");
+    }
 
-        const userRole = await GetUserRole() as string;
-        if (userRole != "ADMIN") {
-            redirect("/");
-        }
-        
+    try {    
         const username = formData.get("username") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
@@ -38,14 +34,11 @@ const AddUserAction = async (formData: FormData) => {
             "password": password,
             "role": role
         });
-        console.log(body)
+
         const res = await customFetch(url, "POST", body); 
         
         if(res.ok) {
-            const data = await res.text()
-            if(data === "success") {
-                redirect("/admin/user")
-            }
+            data = await res.text();           
         }
     }
     catch (error: any) {
@@ -53,7 +46,10 @@ const AddUserAction = async (formData: FormData) => {
             message: error.message  
         };
     }
-    
+
+    if(data === "success") {
+        redirect("/admin/user");                 
+    }
 }
 
 export default AddUserAction;
