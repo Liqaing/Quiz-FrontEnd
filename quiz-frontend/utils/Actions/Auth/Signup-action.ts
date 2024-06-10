@@ -66,9 +66,8 @@ const SignUpAction = async (formState: {message: string}, formData:any) => {
         }
     }
     catch(error: any) {
-        console.log("err", error);
         DeleteCookie();
-        throw new Error(error?.message);
+        throw new Error(error);
     }
 
     redirect("/account/login");

@@ -9,19 +9,27 @@ const UserContent = (props: {data:any}) => {
             <div key={index} className="w-full py-2 px-4 flex items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="w-1/2">
                 <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
-                <small>
-                  email : &nbsp;
-                  {d.email}
-                </small>
-                <br></br>
-                <small>
-                  Role : &nbsp;
-                  {d.role}
-                </small>
-              </div>
-              <div className="w-1/2 text-end ">
-                Created : &nbsp;
-                {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}
+                <div className="flex">
+                  <small className="flex items-end" >
+                    <svg className="pb-2"  width="9" height="9" xmlns="http://www.w3.org/2000/svg">
+                      <circle  cx="4" cy="4" r="4" fill="blue" />
+                    </svg>
+                    <span className="" text-anchor="end">
+                      email : &nbsp;
+                      {d.email}
+                    </span>                     
+                  </small>
+                  
+                  <small className="mr-2">
+                    | Role : &nbsp;
+                    {d.role}
+                  </small>
+                  
+                  <small className="mr-2">
+                    | Created : &nbsp;
+                    {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}
+                  </small>
+                </div>                
               </div>
             </div>
           )

@@ -2,7 +2,6 @@
 
 import { customFetch } from "@/utils/API/CustomFetch";
 import { dataTable, tableResponse } from "./data";
-import GetHeader from "@/utils/Actions/Auth/GetHeader";
 
 export async function fetchTable(data: dataTable) {
 
@@ -14,14 +13,7 @@ export async function fetchTable(data: dataTable) {
     url.searchParams.append("page", data.page);
     url.searchParams.append("size", data.size);
 
-    // const headers = await GetHeader();
-
     const res = await customFetch(url.href, "GET", null);
-    
-    // fetch(url.href, {
-    //   method: "GET",
-    //   headers: headers
-    // })
 
     if(res.ok) {
       const user: tableResponse | null = await res.json()

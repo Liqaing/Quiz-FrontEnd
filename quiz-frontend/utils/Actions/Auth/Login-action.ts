@@ -60,10 +60,9 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
         }
 
     } 
-    catch (error : any) {        
-        console.log("err", error);
+    catch (error : any) {
         DeleteCookie();
-        throw new Error(error?.message);
+        throw new Error(error);
     }
     
     redirect("/");
