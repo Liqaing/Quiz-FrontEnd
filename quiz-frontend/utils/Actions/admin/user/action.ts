@@ -2,12 +2,12 @@
 
 import { redirect } from "next/navigation";
 import CheckLogin from "../../Auth/CheckLogin";
-import GetUserRole from "../../Auth/GetUserRole";
+import {GetUserRole} from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
 
 
-const AddUserAction = async (formData: FormData) => {
+const AddUserAction = async (currentState: {message: string}, formData: FormData) => {
 
     try {
         const isUserLogin = CheckLogin();

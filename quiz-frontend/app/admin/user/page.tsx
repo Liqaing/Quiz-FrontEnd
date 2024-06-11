@@ -1,12 +1,12 @@
 import DataTable from "@/components/Table/user/DataTable";
 import { fetchTable } from "@/utils/API/users/table/fetch-users";
-import GetUserRole from "@/utils/Actions/Auth/GetUserRole";
+import {GetUserRole} from "@/utils/Actions/Auth/GetUserRole";
 import { redirect } from "next/navigation";
 
 export default async function User() {
     
-    const userRole = await GetUserRole() as string;
-    if (userRole != "ADMIN") {
+    const userRole: string = await GetUserRole();
+    if (userRole != "ROLE_ADMIN") {
         redirect("/");
     }
 

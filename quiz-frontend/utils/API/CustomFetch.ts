@@ -16,7 +16,7 @@ export async function customFetch(url: string, method: string, body: any) {
   )
   if(!res.ok) {
     const role = await fetch(
-      process.env.BASE_API_URL + "/api/role",
+      process.env.BASE_API_URL + "api/role",
       {
         method: "GET",
         headers: { 

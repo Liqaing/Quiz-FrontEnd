@@ -24,7 +24,6 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
 
   const first = async () => {
     const data = await prop.FetchQuiz({page: 0});
-    console.log(data);
     setIsEnd(data.isEnd)
     setQuizList(data.quizList)
   }
