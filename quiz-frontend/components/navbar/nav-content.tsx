@@ -1,12 +1,12 @@
 import Link from "next/link"
 import NavLink from "./nav-link"
 import CheckLogin from "@/utils/Actions/Auth/CheckLogin";
-import GetUserRole from "@/utils/Actions/Auth/GetUserRole";
+import { GetUserRole } from "@/utils/Actions/Auth/GetUserRole";
 
-const NavBarContent = async () => {        
+const NavBarContent = async () => {
 
-    const isUserLogin = CheckLogin();
-    const userRole = await GetUserRole() as string;
+    const isUserLogin = await CheckLogin();
+    const userRole = await GetUserRole();
 
     return (                        
 
