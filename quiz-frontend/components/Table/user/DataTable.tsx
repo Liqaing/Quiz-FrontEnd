@@ -103,7 +103,9 @@ const DataTable = (props: {fetchTable: Function}) => {
         <div className="w-full flex justify-between py-2 px-1 gap-2 sm:gap-4">
             <div className="flex gap-3">
                 <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
-                <Link href="/admin/user/add" className="dark:text-white bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-6">Add</Link>
+                <Link href="/admin/user/add" className="text-black dark:text-white px-2 pt-1.5 w-16 text-center h-8 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-slate-700">
+                  ADD
+                </Link>
             </div>
             <div className="flex gap-3">
               <Order orderSortFunc={orderSortFunc} />

@@ -11,7 +11,7 @@ const AddUserAction = async (currentState: {message: string}, formData: FormData
 
     let data = null;
     const userRole = await GetUserRole() as string;
-    if (userRole != "ADMIN") {            
+    if (userRole != "ROLE_ADMIN") {            
         redirect("/");
     }
 
@@ -38,10 +38,17 @@ const AddUserAction = async (currentState: {message: string}, formData: FormData
         const res = await customFetch(url, "POST", body); 
         
         if(res.ok) {
-            data = await res.text();           
+            data = await res.text();
+        }
+
+        if (res.status == 400) {
+            return {
+                message: "Username or Email already exists"
+            };
         }
     }
     catch (error: any) {
+        
         return {
             message: error.message  
         };

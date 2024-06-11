@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { tokenResponse } from "@/utils/definition";
+import { execFileSync } from "child_process";
 
 export async function customFetch(url: string, method: string, body: any) {
   const accessToken = "Bearer " + cookies().get("quiz-session")?.value
@@ -14,6 +15,7 @@ export async function customFetch(url: string, method: string, body: any) {
       body: body
     }
   )
+
   if(!res.ok) {
     const role = await fetch(
       process.env.BASE_API_URL + "api/role",
@@ -25,9 +27,11 @@ export async function customFetch(url: string, method: string, body: any) {
         }
       }
     )
+
     if(role.ok) {
       throw new Error("Something Went Wrong, " + res.statusText);
     }
+
     else {
       const refreshToken = "Bearer " + cookies().get("quiz-session-refresh")?.value;
       const token = await fetch(
@@ -57,10 +61,23 @@ export async function customFetch(url: string, method: string, body: any) {
             body: body
           }
         )
+
         if(newRes.ok) {
           return newRes;
-        }else {
-          throw new Error("Something Went Wrong, " + newRes.status)
+        }
+        else {
+
+          // Try to get error message if have
+          let err_msg:string | null = null
+          try {
+            err_msg = await newRes.text();            
+          }
+          catch (error) {}
+          if (err_msg) {
+            throw new Error(err_msg)
+          }          
+                  
+          return newRes
         }
       }
       else {
@@ -68,5 +85,6 @@ export async function customFetch(url: string, method: string, body: any) {
       }
     }
   }
+  
   return res;
 }
