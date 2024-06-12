@@ -7,7 +7,7 @@ import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
 
 
-const AddUserAction = async (currentState: {message: string}, formData: FormData) => {
+const AddUserAction = async (formState: {message: string}, formData: FormData) => {
 
     let data = null;
     const userRole = await GetUserRole() as string;

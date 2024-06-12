@@ -19,7 +19,7 @@ const AddUser = () => {
     return (
         <section className="block mt-12 px-12">
             <h3 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl dark:text-white">ADD USER</h3>
-            <AddEditUser formAction={formAction} formState={formState}></AddEditUser>
+            <AddEditUser formAction={formAction} formState={formState} userData={null}></AddEditUser>
         </section>
     )
 }
