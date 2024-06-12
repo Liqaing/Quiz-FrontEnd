@@ -7,6 +7,10 @@ import PageSize from "@/components/Table/PageSize"
 import { order, orderBy, pageSize, DataResponse, tableResponse} from "@/utils/API/users/table/data"
 import UserContent from "./user-content"
 import Link from "next/link"
+import DeleteModal from "@/components/form/DeleteModal/DeleteModel"
+import { useSearchParams } from "next/navigation"
+import DeleteUserAction from "@/utils/Actions/admin/user/DeleteUserAction"
+import { useFormState } from "react-dom"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
@@ -98,12 +102,33 @@ const DataTable = (props: {fetchTable: Function}) => {
     }
   }
 
+  
+  const initialState = {
+      message: ""
+  };
+  const [formState, formAction] = useFormState(DeleteUserAction, initialState);
+
+  const searchParams = useSearchParams()
+  const deleteId = searchParams.get("delete") ;
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (deleteId) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  }, [deleteId]);
+
   return (
     <div className="h-full w-full flex flex-col justify-between items-center gap-2">
         <div className="w-full flex justify-between py-2 px-1 gap-2 sm:gap-4">
             <div className="flex gap-3">
                 <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
-                <Link href="/admin/user/add" className="text-black dark:text-white px-2 pt-1.5 w-16 text-center h-8 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-slate-700">
+                <Link href="/admin/user/add" className="inline-flex items-center text-black dark:text-white px-2 pt-1.5 w-17 text-center h-8 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-slate-700">
+                  <svg className="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H5a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1z"/>
+                  </svg>
                   ADD
                 </Link>
             </div>
@@ -118,7 +143,15 @@ const DataTable = (props: {fetchTable: Function}) => {
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
+        {
+          showModal && ( 
+            <DeleteModal pathBack="/admin/user" formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
+          )
+        }
+        
     </div>
+
+    
   )
 }
 

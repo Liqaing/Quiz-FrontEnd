@@ -10,3 +10,6 @@ export const order = {
 }
 
 
+export type FormState = {
+  message: string;
+};

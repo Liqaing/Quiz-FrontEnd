@@ -12,7 +12,9 @@ interface RegisterData {
     role:string
 }
 
-const SignUpAction = async (formState: {message: string}, formData:any) => {
+const SignUpAction = async (formState: {message: string}, formData:any): Promise<{
+    message:string
+}> => {
     
     try {
         const isUserLogin = CheckLogin();
@@ -61,7 +63,7 @@ const SignUpAction = async (formState: {message: string}, formData:any) => {
     
         if (res.status == 400) {
             return {
-                message: res.text()
+                message: await res.text()
             };
         }
     }
