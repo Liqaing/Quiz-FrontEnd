@@ -117,8 +117,10 @@ const DataTable = (props: {fetchTable: Function}) => {
       setShowModal(true);
     } else {
       setShowModal(false);
+      loadData();
     }
   }, [deleteId]);
+
 
   return (
     <div className="h-full w-full flex flex-col justify-between items-center gap-2">
@@ -145,7 +147,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
           showModal && ( 
-            <DeleteModal pathBack="/admin/user" formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
+            <DeleteModal pathBack="/admin/user" reloadTable={loadData} formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
           )
         }
         

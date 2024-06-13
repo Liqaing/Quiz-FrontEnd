@@ -15,7 +15,7 @@ export default async function EditUserAction(formState: {message: string}, formD
     try {    
         const username = formData.get("username") as string;
         const email = formData.get("email") as string;
-        // const password = formData.get("password") as string;
+        let password = formData.get("password") as string;
         const role = formData.get("role") as string;
         const userId = formData.get("id") as string
         
@@ -24,12 +24,16 @@ export default async function EditUserAction(formState: {message: string}, formD
                 message: "Invalid input, please fill the form accordingly"
             };
         }
+
+        if (isEmpty(password)) {
+            password = ""
+        };
         
         const url = process.env.BASE_API_URL + "api/user/update/" + userId;
         const body = JSON.stringify({
             "username": username,
             "email": email,
-            "password": "",
+            "password": password,
             "role": role
         });
 
