@@ -9,15 +9,15 @@ const UserContent = (props: {data:any}) => {
           return (
             <div key={index} className="w-full py-2 px-4 flex items-center justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div>
-                <p className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
-                <div className="flex gap-2 mt-2">
+                <p className="lg:text-lg md:text-base font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
+                <div className="lg:flex gap-2 mt-2">
                   <small className="flex items-end gap-1.5" >
                     <div className="pb-1">
                       <svg   width="8" height="8" xmlns="http://www.w3.org/2000/svg">
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div>                    
-                    <span>                      
+                    <span className="lg:text-base md:text-sm">                      
                       {d.email}
                     </span>
                   </small>
@@ -28,7 +28,7 @@ const UserContent = (props: {data:any}) => {
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div>
-                    <span>
+                    <span className="lg:text-base md:text-sm">
                       {d.role}    
                     </span>
                   </small>
@@ -39,7 +39,7 @@ const UserContent = (props: {data:any}) => {
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div> 
-                    <span>
+                    <span className="lg:text-base md:text-sm">
                       Created - &nbsp;
                       {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}
                     </span>                    
