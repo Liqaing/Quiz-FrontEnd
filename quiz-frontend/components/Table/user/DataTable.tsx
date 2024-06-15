@@ -131,7 +131,9 @@ const DataTable = (props: {fetchTable: Function}) => {
                   <svg className="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H5a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1z"/>
                   </svg>
-                  ADD
+                  <span className="xs:hidden">
+                    ADD
+                  </span>                  
                 </Link>
             </div>
             <div className="flex gap-3">
