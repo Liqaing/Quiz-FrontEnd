@@ -68,11 +68,11 @@ const DataTable = (props: {fetchTable: Function}) => {
   const getPageSizeNum = (size: string | undefined): number => {
     if(size == undefined) return 10;
     switch(size) {
-      case "TEN":
+      case "10":
         return 10;
-      case "FIFTEEN":
+      case "15":
         return 15
-      case "TWENTY":
+      case "20":
         return 20;
       default:
         return 10;
@@ -127,11 +127,11 @@ const DataTable = (props: {fetchTable: Function}) => {
         <div className="w-full flex justify-between py-2 px-1 gap-2 sm:gap-4">
             <div className="flex gap-3">
                 <PageSize pageSizeFunc={pageSizeFunc} sizePage={pageZero}/>
-                <Link href="/admin/user/add" className="inline-flex items-center text-black dark:text-white px-2 pt-1.5 w-17 text-center h-8 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-slate-700">
-                  <svg className="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <Link href="/admin/user/add" className="xs:w-21 md:w-26 inline-flex items-center text-black dark:text-white px-2 py-2 w-17 text-center h-8 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 xs:text-xs md:text-md sm:leading-6 dark:bg-slate-700">
+                  <svg className="w-5 h-5 sm:me-1 xs:m-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H5a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1z"/>
                   </svg>
-                  <span className="xs:hidden">
+                  <span className="sm:block xs:hidden">
                     ADD
                   </span>                  
                 </Link>
