@@ -7,7 +7,9 @@ import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
 
 
-const AddUserAction = async (formState: {message: string}, formData: FormData) => {
+const AddUserAction = async (formState: {message: string}, formData: FormData): Promise<{
+    message:string
+}> => {
 
     let data = null;
     const userRole = await GetUserRole() as string;
@@ -47,16 +49,20 @@ const AddUserAction = async (formState: {message: string}, formData: FormData) =
             };
         }
     }
-    catch (error: any) {
-        
+    catch (error: any) {        
         return {
             message: error.message  
         };
     }
 
     if(data === "success") {
-        redirect("/admin/user");                 
+        redirect("/admin/user");        
     }
+
+    return {
+        message: ""
+    }
+    
 }
 
 export default AddUserAction;

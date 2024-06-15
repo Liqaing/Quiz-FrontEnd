@@ -17,7 +17,7 @@ const UserContent = (props: {data:any}) => {
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div>                    
-                    <span className="lg:text-base md:text-sm">                      
+                    <span className="lg:text-sm">                      
                       {d.email}
                     </span>
                   </small>
@@ -28,7 +28,7 @@ const UserContent = (props: {data:any}) => {
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div>
-                    <span className="lg:text-base md:text-sm">
+                    <span className="lg:text-sm">
                       {d.role}    
                     </span>
                   </small>
@@ -39,7 +39,7 @@ const UserContent = (props: {data:any}) => {
                         <circle  cx="3" cy="3" r="3" fill="blue" />
                       </svg>
                     </div> 
-                    <span className="lg:text-base md:text-sm">
+                    <span className="lg:text-sm">
                       Created - &nbsp;
                       {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}
                     </span>                    

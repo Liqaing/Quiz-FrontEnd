@@ -1,13 +1,12 @@
 "use client"
 
-import Link from "next/link";
 import FormSubmit from "./FormSubmit";
 import { FetchUser, userData } from "@/utils/API/users/fetch-user";
 
 export default function AddEditUser(props: {formAction:any, formState:any, userData: userData | null}) {
 
     return (
-        <form className="max-w-screen-xl mx-auto p-2" action={props.formAction}>
+        <form className="max-w-screen-xl mx-auto p-1 sm:p-2" action={props.formAction}>
                 <input type="text" hidden name="id" id="id" value={props.userData?.id}/>
 
                 <div className="mb-5">
