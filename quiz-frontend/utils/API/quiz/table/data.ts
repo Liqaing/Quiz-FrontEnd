@@ -23,7 +23,7 @@ export type dataTable = {
 }
 
 export type tableResponse = {
-  quizzes: DataResponse,
+  data: DataResponse,
   columns: number
 }
 

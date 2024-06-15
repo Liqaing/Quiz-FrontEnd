@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import Order from "@/components/Table/Order"
 import PageSize from "@/components/Table/PageSize"
 import { order, orderBy, pageSize, DataResponse, tableResponse} from "@/utils/API/quiz/table/data"
-import UserContent from "./user-content"
+import QuizContent from "./QuizContent"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
@@ -75,7 +75,7 @@ const DataTable = (props: {fetchTable: Function}) => {
   }
 
   useEffect(() => {
-      loadData();
+    loadData();
   }, [page, search, size, orderSort]);
 
   const loadData = async () => {
@@ -88,7 +88,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         size: size,
       });
       if(res != null) {
-        setData(res.quizzes);
+        setData(res.data);
         setColumn(res.columns);
       }
     } catch (e) {
@@ -106,7 +106,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">
-            <UserContent data={data}/>
+            <QuizContent data={data}/>
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>

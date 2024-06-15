@@ -16,8 +16,18 @@ export async function fetchTable(data: dataTable) {
     const res = await customFetch(url.href, "GET", null);
 
     if(res.ok) {
-      const user: tableResponse | null = await res.json()
-      return user;
+      const quizzes: tableResponse | null = await res.json()
+      return quizzes;
+    }
+    else {
+      let err = null;
+      try {
+          err = await res.text();
+      }
+      catch (error) {}
+      if (err) {
+          throw new Error(err);
+      }
     }
   } catch (error) {
     console.log(error);
