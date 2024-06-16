@@ -108,8 +108,8 @@ const DataTable = (props: {fetchTable: Function}) => {
   };
   const [formState, formAction] = useFormState(DeleteUserAction, initialState);
 
-  const searchParams = useSearchParams()
-  const deleteId = searchParams.get("delete") ;
+  const searchParams = useSearchParams();
+  const deleteId = searchParams.get("delete");
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {

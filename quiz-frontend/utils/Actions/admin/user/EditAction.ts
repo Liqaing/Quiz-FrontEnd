@@ -5,7 +5,9 @@ import { GetUserRole } from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
 
-export default async function EditUserAction(formState: {message: string}, formData:FormData) {
+export default async function EditUserAction(formState: {message: string}, formData:FormData): Promise<{
+    message:string
+}> {
     let data = null;
     const userRole = await GetUserRole() as string;
     if (userRole != "ROLE_ADMIN") {            
@@ -25,9 +27,9 @@ export default async function EditUserAction(formState: {message: string}, formD
             };
         }
 
-        if (isEmpty(password)) {
-            password = ""
-        };
+        // if (isEmpty(password)) {
+        //     password = ""
+        // };
         
         const url = process.env.BASE_API_URL + "api/user/update/" + userId;
         const body = JSON.stringify({
@@ -42,12 +44,18 @@ export default async function EditUserAction(formState: {message: string}, formD
         if(res.ok) {
             data = await res.text();
         }
-
-        if (res.status == 400) {
-            return {
-                message: "Username or Email already exists"
-            };
-        }
+        else {
+            let err = null;
+            try {
+                err = await res.text();
+            }
+            catch (error) {}
+            if (err) {
+                return {
+                    message: err
+                };
+            }
+        }        
     }
     catch (error: any) {
         
@@ -59,4 +67,8 @@ export default async function EditUserAction(formState: {message: string}, formD
     if(data === "success") {
         redirect("/admin/user");                 
     }
+
+    return {
+        message: ""  
+    };
 }
