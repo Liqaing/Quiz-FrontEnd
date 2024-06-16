@@ -1,7 +1,7 @@
 import Link from "next/link";
 import FormSubmit from "./formsubmit";
 
-export default function DeleteModal(props: {pathBack:string, id:string, formAction:any, formState:any, reloadTable:Function}) {
+export default function DeleteModal(props: {pathBack:string, id:string, formAction:any, formState:any}) {
     
     return (
         <form action={props.formAction} >

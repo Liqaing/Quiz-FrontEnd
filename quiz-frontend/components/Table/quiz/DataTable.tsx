@@ -13,6 +13,8 @@ import QuizDetailFrom from "@/components/form/admin/quiz/QuizDetail"
 import { useSearchParams } from "next/navigation"
 import { useFormState } from "react-dom"
 import CreateQuizAction from "@/utils/Actions/admin/quiz/CreateAction"
+import DeleteModal from "@/components/form/DeleteModal/DeleteModel"
+import DeleteQuizAction from "@/utils/Actions/admin/quiz/DeleteQuizAction"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
@@ -81,9 +83,11 @@ const DataTable = (props: {fetchTable: Function}) => {
     }
   }
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     loadData();
-  }, [page, search, size, orderSort]);
+  }, [page, search, size, orderSort, searchParams]);
 
   const loadData = async () => {
     try {
@@ -104,14 +108,33 @@ const DataTable = (props: {fetchTable: Function}) => {
     }
   }
 
-  const searchParams = useSearchParams();
+  const quizId = searchParams.get("delete");
+
   const [showAdd, setShowAdd] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [showEditQuiz, setshowEditQuiz] = useState(false);
+
   useEffect(() => {
+
     if (searchParams.has("add")) {
       setShowAdd(true);
     }  
     else {
       setShowAdd(false);
+    }
+
+    if (searchParams.has("delete")) {
+      setShowDelete(true);
+    }
+    else {
+      setShowDelete(false);
+    }
+
+    if (searchParams.has("editQuiz")) {
+      setshowEditQuiz(true);
+    }
+    else {
+      setshowEditQuiz(false);
     }
   })
 
@@ -119,6 +142,7 @@ const DataTable = (props: {fetchTable: Function}) => {
       message: ""
   };
   const [formState, formAction] = useFormState(CreateQuizAction, initialState);
+  const [DelteFormState, DeleteFormAction] = useFormState(DeleteQuizAction, initialState);
 
 
   return (
@@ -147,9 +171,16 @@ const DataTable = (props: {fetchTable: Function}) => {
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
-          showAdd &&
+          showAdd || showEditQuiz &&
           (
             <QuizDetailFrom pathBack="/admin/quiz" formAction={formAction} formState={formState}></QuizDetailFrom>
+          )
+        }
+
+        {
+          showDelete &&
+          (
+            <DeleteModal pathBack="/admin/quiz" formAction={DeleteFormAction} formState={DelteFormState} id={quizId as string}></DeleteModal>
           )
         }
         

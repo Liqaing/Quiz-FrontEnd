@@ -79,9 +79,11 @@ const DataTable = (props: {fetchTable: Function}) => {
     }
   }
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
       loadData();
-  }, [page, search, size, orderSort]);
+  }, [page, search, size, orderSort, searchParams]);
 
   const loadData = async () => {
     try {
@@ -108,7 +110,7 @@ const DataTable = (props: {fetchTable: Function}) => {
   };
   const [formState, formAction] = useFormState(DeleteUserAction, initialState);
 
-  const searchParams = useSearchParams();
+  
   const deleteId = searchParams.get("delete");
   const [showModal, setShowModal] = useState(false);
 
@@ -117,9 +119,8 @@ const DataTable = (props: {fetchTable: Function}) => {
       setShowModal(true);
     } else {
       setShowModal(false);
-      loadData();
     }
-  }, [deleteId]);
+  });
 
 
   return (
@@ -149,7 +150,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
           showModal && ( 
-            <DeleteModal pathBack="/admin/user" reloadTable={loadData} formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
+            <DeleteModal pathBack="/admin/user" formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
           )
         }
         

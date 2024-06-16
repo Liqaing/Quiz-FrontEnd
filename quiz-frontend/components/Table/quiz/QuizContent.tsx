@@ -10,7 +10,15 @@ const QuizContent = (props: {data:any}) => {
             <div key={index} className="w-full md:h-28 h-[10.5 rem] py-2 px-4 sm:flex items-center justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               
               <div>
-                <p className="lg:text-lg md:text-base font-bold tracking-tight text-gray-900 dark:text-white">{d.name}</p>
+                <p className="flex items-center gap-2 lg:text-lg md:text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                  {d.name}
+                  <Link href={`/admin/quiz?editQuiz=${d.id}`}>
+                    <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M17.414 2.586a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-1.272.586H4a1 1 0 0 1-1-1v-2.142a2 2 0 0 1 .586-1.272l10-10a2 2 0 0 1 2.828 0zm-2.828 2.828l-10 10H4v-1.586l10-10 1.586 1.586zm-1.414-1.414L14 4.172 15.828 6 17 4.828 14.828 2.586z"/>
+                    </svg>
+                  </Link>
+                  
+                </p>
 
                 <p className="sm:w-4/5 xs:4.5/5 my-1 text-[0.8rem] hyphens-auto font-extralight line-clamp-2 ">
                   {d.description}
