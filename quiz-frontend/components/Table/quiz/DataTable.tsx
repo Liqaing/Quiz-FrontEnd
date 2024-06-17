@@ -108,7 +108,7 @@ const DataTable = (props: {fetchTable: Function}) => {
     }
   }
 
-  const quizId = searchParams.get("delete");
+  const quizId = searchParams.get("id") as string;
 
   const [showAdd, setShowAdd] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -171,16 +171,23 @@ const DataTable = (props: {fetchTable: Function}) => {
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
-          showAdd || showEditQuiz &&
+          showAdd &&
           (
-            <QuizDetailFrom pathBack="/admin/quiz" formAction={formAction} formState={formState}></QuizDetailFrom>
+            <QuizDetailFrom pathBack="/admin/quiz" mode="ADD" formAction={formAction} formState={formState} quizId={quizId}></QuizDetailFrom>
+          )
+        }
+
+        {
+          showEditQuiz &&
+          (
+            <QuizDetailFrom pathBack="/admin/quiz" mode="EDIT" formAction={formAction} formState={formState} quizId={quizId}></QuizDetailFrom>
           )
         }
 
         {
           showDelete &&
           (
-            <DeleteModal pathBack="/admin/quiz" formAction={DeleteFormAction} formState={DelteFormState} id={quizId as string}></DeleteModal>
+            <DeleteModal pathBack="/admin/quiz" formAction={DeleteFormAction} formState={DelteFormState} id={quizId}></DeleteModal>
           )
         }
         
