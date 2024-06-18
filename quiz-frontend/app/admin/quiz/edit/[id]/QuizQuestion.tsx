@@ -1,12 +1,13 @@
 "use client"
 
 import QuestionView from "@/components/View/question/QuestionListView";
-import AddQuestion from "@/components/form/admin/question/add/Question";
+import QuestionForm from "@/components/form/admin/question/add/Question";
 import { QuizData } from "@/type/type";
 import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
-import CreateQuestionAction from "@/utils/Actions/admin/quiz/CreateAction";
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
+import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
+import { Button } from "@headlessui/react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 
@@ -31,27 +32,43 @@ export default function QuizQuestion(props: {quizId:string}) {
     const description = searchParams.get("description");
     const date = new Date(createDate);
 
-    const baseUrl = usePathname();    
-    const currentUrl:string = `${baseUrl}?name=${name}&visibility=${visibility}&createdAt${createDate}&description=${description}`;
-    const addQuestionUrl = currentUrl + "&add-question=True";
+    // const baseUrl = usePathname();    
+    // const currentUrl:string = `${baseUrl}?name=${name}&visibility=${visibility}&createdAt${createDate}&description=${description}`;
 
     const [showAdd, setShowAdd] = useState(false);
-    useEffect(() => {
-        if (searchParams.has("add-question")) {
-            setShowAdd(true);
-        }  
-        else {
+    const [showEdit, setShowEdit] = useState(false);
+    const [questionId, setQuestionId] = useState("");
+
+
+    useEffect(() => {       
+        FetchQuiz(props.quizId);
+    }, [showAdd]);
+
+    function handleAddModal() {
+        if (showAdd) {
             setShowAdd(false);
         }
-        
-        FetchQuiz(props.quizId);
+        else {
+            setShowAdd(true);
+        }
+    }
 
-    }, [searchParams]);
+    function handleEditQuestionModal(questionId:string) {
+        if (showEdit) {
+            setShowEdit(false);
+            setQuestionId("");            
+        }
+        else {
+            setShowEdit(true);
+            setQuestionId(questionId);
+        }
+    }
 
     const initialState = {
         message: ""
     };
     const [formState, formAction] = useFormState(CreateQuestionAction, initialState);
+    const [EditQuestionformState, EditQuestionformAction] = useFormState(EditQuestionAction, initialState);
 
     return (
         <div className="max-w-screen-xl mx-auto p-2">             
@@ -76,16 +93,22 @@ export default function QuizQuestion(props: {quizId:string}) {
                 <div className="w-full flex justify-between">
                     <p className="lg:text-lg md:text-base font-semibold uppercase text-gray-900 dark:text-white">Question</p>
 
-                    <Link href={addQuestionUrl} className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Button onClick={handleAddModal} className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add Question
-                    </Link>
+                    </Button>
                 </div>
 
-                <QuestionView data={quizData}></QuestionView>
+                <QuestionView data={quizData} handleEditQuestionModal={handleEditQuestionModal}></QuestionView>
 
                 {
                     showAdd && (
-                        <AddQuestion quizId={props.quizId} pathBack={currentUrl} formAction={formAction} formState={formState}></AddQuestion>                    
+                        <QuestionForm mode="ADD" quizId={props.quizId} questionId={null} formAction={formAction} formState={formState} handleModal={handleAddModal}></QuestionForm>                    
+                    )
+                }
+
+                {
+                    showEdit && (
+                        <QuestionForm mode="EDIT" quizId={props.quizId} questionId={questionId} formAction={EditQuestionformAction} formState={EditQuestionformState} handleModal={handleEditQuestionModal}></QuestionForm>                    
                     )
                 }
             </div>

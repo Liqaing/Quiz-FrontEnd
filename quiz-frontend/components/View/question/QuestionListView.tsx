@@ -1,7 +1,8 @@
 import { Answer, Question, QuizData } from "@/type/type";
+import { Button } from "@headlessui/react";
 import Link from "next/link";
 
-export default function QuestionView(props: {data: QuizData | null}) {
+export default function QuestionView(props: {data: QuizData | null, handleEditQuestionModal:any}) {
     return (
         <div className="w-full">
             {
@@ -30,8 +31,7 @@ export default function QuestionView(props: {data: QuizData | null}) {
                                 {
                                     d.answers.map((answer:Answer, answerIndex:any) => {
                                         return (
-                                            <p className="inline-flex justify-start items-center text-sm font-medium focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                                                
+                                            <p key={answerIndex} className="inline-flex justify-start items-center text-sm font-medium focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">                                                
                                                 {
                                                     answer.correct ? 
                                                     (                                                        
@@ -56,12 +56,12 @@ export default function QuestionView(props: {data: QuizData | null}) {
                             </div>
 
                             <div className="inline-flex rounded-md shadow-sm sm:w-fit sm:mt-0 sm:w-fit w-full justify-end" role="group">
-                                <Link href={`/admin/quiz/edit/${d.id}`} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-blue-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                                <Button onClick={() => props.handleEditQuestionModal(d.id)} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-blue-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
                                 <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M17.414 2.586a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-1.272.586H4a1 1 0 0 1-1-1v-2.142a2 2 0 0 1 .586-1.272l10-10a2 2 0 0 1 2.828 0zm-2.828 2.828l-10 10H4v-1.586l10-10 1.586 1.586zm-1.414-1.414L14 4.172 15.828 6 17 4.828 14.828 2.586z"/>
                                 </svg>
                                 Edit
-                                </Link>
+                                </Button>
 
                                 <Link href={`/admin/quiz/?delete=true&id=${d.id}`} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
                                 <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

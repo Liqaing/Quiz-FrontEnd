@@ -7,7 +7,7 @@ import { customFetch } from "@/utils/API/CustomFetch";
 import { headers } from 'next/headers';
 
 
-const CreateQuestionAction = async (formState: {message: string}, formData: FormData): Promise<{
+const EditQuestionAction = async (formState: {message: string}, formData: FormData): Promise<{
     message:string
 }> => {
 
@@ -19,7 +19,7 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
 
     try {
         const question = formData.get("question") as string;
-        const quizId = formData.get("id") as string;
+        const questionId = formData.get("question-id") as string;
         const type = formData.get("type") as string;
         const answer1 = formData.get("answer0") as string;
         const answer2 = formData.get("answer1") as string;
@@ -27,7 +27,7 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
         const answer4 = formData.get("answer3") as string;
         const correctAnswer = formData.get("correctAnswer") as string;
 
-        if (isEmpty(question) || isEmpty(quizId) ||
+        if (isEmpty(question) || isEmpty(questionId) ||
             isEmpty(type) || isEmpty(answer1) || isEmpty(answer2) || isEmpty(answer3) ||
             isEmpty(answer4) || isEmpty(correctAnswer)
         ) {
@@ -58,17 +58,16 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
         
 
         
-        const url = process.env.BASE_API_URL + "api/question/createQNA";
+        const url = process.env.BASE_API_URL + "api/question/updateQNA/" + questionId;
         const body = JSON.stringify(
             {
                 "question": question,
                 "type": type,
-                "quizId": quizId,
                 "answer": answerList
             }
         );
 
-        const res = await customFetch(url, "POST", body); 
+        const res = await customFetch(url, "PUT", body); 
         
         if(res.ok) {
             data = await res.text();
@@ -106,4 +105,4 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
     }
 }
 
-export default CreateQuestionAction;
+export default EditQuestionAction;
