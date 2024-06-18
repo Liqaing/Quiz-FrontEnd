@@ -2,8 +2,6 @@
 import { QuizData } from "@/type/type";
 import { customFetch } from "@/utils/API/CustomFetch";
 
-
-
 export async function FetchOneQuiz(id:string | null) {
     
     const url = new URL(`${process.env.BASE_API_URL}api/quiz/find/${id}` as string);   

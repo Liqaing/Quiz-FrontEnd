@@ -111,16 +111,19 @@ const DataTable = (props: {fetchTable: Function}) => {
   const [formState, formAction] = useFormState(DeleteUserAction, initialState);
 
   
-  const deleteId = searchParams.get("delete");
+  // const deleteId = searchParams.get("delete");
+  const [userId, setUserId] = useState(""); 
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    if (deleteId) {
-      setShowModal(true);
-    } else {
+  function handleDeleteModal(userId:string) {
+    if (showModal) {
       setShowModal(false);
+      setUserId("");
+    } else {
+      setShowModal(true);
+      setUserId(userId);      
     }
-  });
+  }
 
 
   return (
@@ -144,13 +147,13 @@ const DataTable = (props: {fetchTable: Function}) => {
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">
-            <UserContent data={data}/>
+            <UserContent data={data} daleteModalHandler={handleDeleteModal}/>
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
           showModal && ( 
-            <DeleteModal pathBack="/admin/user" formAction={formAction} formState={formState} id={deleteId as string}></DeleteModal>
+            <DeleteModal modalHandler={handleDeleteModal} formAction={formAction} formState={formState} id={userId as string}></DeleteModal>
           )
         }
         

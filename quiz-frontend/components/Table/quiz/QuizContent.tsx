@@ -1,6 +1,7 @@
+import { Button } from "@headlessui/react"
 import Link from "next/link"
 
-const QuizContent = (props: {data:any}) => {
+const QuizContent = (props: {data:any, handleDeleteModal:any, handleEditForm:any}) => {
   return (
     <div className="flex flex-col gap-2 px-1">  
       {
@@ -12,12 +13,11 @@ const QuizContent = (props: {data:any}) => {
               <div>
                 <p className="flex items-center gap-2 lg:text-lg md:text-base font-bold tracking-tight text-gray-900 dark:text-white">
                   {d.name}
-                  <Link href={`/admin/quiz?editQuiz=true&id=${d.id}`}>
+                  <Button onClick={() => props.handleEditForm(d.id)}>
                     <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M17.414 2.586a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-1.272.586H4a1 1 0 0 1-1-1v-2.142a2 2 0 0 1 .586-1.272l10-10a2 2 0 0 1 2.828 0zm-2.828 2.828l-10 10H4v-1.586l10-10 1.586 1.586zm-1.414-1.414L14 4.172 15.828 6 17 4.828 14.828 2.586z"/>
                     </svg>
-                  </Link>
-                  
+                  </Button>                  
                 </p>
 
                 <p className="sm:w-4/5 xs:4.5/5 my-1 text-[0.8rem] hyphens-auto font-extralight line-clamp-2 ">
@@ -57,12 +57,12 @@ const QuizContent = (props: {data:any}) => {
                   </svg>
                   Edit
                 </Link>                
-                <Link href={`/admin/quiz/?delete=true&id=${d.id}`} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                <Button onClick={() => props.handleDeleteModal(d.id)} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
                   <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
                   </svg>
                   Delete
-                </Link>
+                </Button>
               </div>
             </div>
           )

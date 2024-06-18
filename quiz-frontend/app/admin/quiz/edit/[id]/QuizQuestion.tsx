@@ -1,13 +1,27 @@
 "use client"
 
+import QuestionView from "@/components/View/question/QuestionListView";
 import AddQuestion from "@/components/form/admin/question/add/Question";
+import { QuizData } from "@/type/type";
+import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/quiz/CreateAction";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 
+
+
 export default function QuizQuestion(props: {quizId:string}) {
+
+    const [quizData, setQuizData] = useState<QuizData | null>(null);
+
+    async function FetchQuiz(quizId:string) {
+        const data = await FetchOneQuiz(quizId);
+        if (data) {
+            setQuizData(data);
+        }
+    }
 
     // get search query
     const searchParams = useSearchParams();
@@ -29,7 +43,10 @@ export default function QuizQuestion(props: {quizId:string}) {
         else {
             setShowAdd(false);
         }
-    });
+        
+        FetchQuiz(props.quizId);
+
+    }, [searchParams]);
 
     const initialState = {
         message: ""
@@ -63,6 +80,8 @@ export default function QuizQuestion(props: {quizId:string}) {
                         Add Question
                     </Link>
                 </div>
+
+                <QuestionView data={quizData}></QuestionView>
 
                 {
                     showAdd && (

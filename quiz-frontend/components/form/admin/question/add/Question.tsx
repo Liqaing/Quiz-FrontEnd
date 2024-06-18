@@ -39,6 +39,8 @@ export default function AddQuestion(props: {quizId:string, pathBack:string, form
                     </div>
                     
                     <form className="p-4 md:p-5" action={props.formAction}>
+                        <input type="text" hidden name="id" id="id" value={props.quizId}/>
+
                         <div className="grid gap-4 mb-4 grid-cols-4">
                             <div className="col-span-4">
                                 <label htmlFor="question" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quiz Question</label>
@@ -46,8 +48,8 @@ export default function AddQuestion(props: {quizId:string, pathBack:string, form
                             </div>                            
                             <div className="col-span-4">
                                 <label htmlFor="type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Question Type</label>
-                                <select id="type" name="type" defaultValue={"DEFAULT"} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option value="DEFAULT" disabled>Select Question Type</option>
+                                <select id="type" name="type" defaultValue={"MULTIPLE CHOICE"} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    {/* <option value="DEFAULT" disabled>Select Question Type</option> */}
                                     <option value="MULTIPLE CHOICE">Multiple Choice</option>                                             
                                 </select>
                             </div>
@@ -77,25 +79,25 @@ export default function AddQuestion(props: {quizId:string, pathBack:string, form
                             <ul id="correct-answer" className="col-span-4 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-600 dark:border-gray-600 dark:text-white">
                                 <li className="w-full overflow-x-scroll border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div className="flex items-center ps-3">
-                                        <input id="correct-1" type="radio" name="correct" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                        <input id="correct-1" type="radio" name="correct" value={answer1} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                         <label htmlFor="correct-1" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{answer1 ? answer1 : "Answer 1"}</label>
                                     </div>
                                 </li>
                                 <li className="w-full w-full overflow-x-scroll border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div className="flex items-center ps-3">
-                                        <input id="correct-2" type="radio" name="correct" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                        <input id="correct-2" type="radio" name="correct" value={answer2} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                         <label htmlFor="correct-2" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{answer2 ? answer2 : "Answer 2"}</label>
                                     </div>
                                 </li>
                                 <li className="w-full w-full overflow-x-scroll border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div className="flex items-center ps-3">
-                                        <input id="correct-3" type="radio" name="correct" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                        <input id="correct-3" type="radio" name="correct" value={answer3} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                         <label htmlFor="correct-3" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{answer3 ? answer3 : "Answer 3"}</label>
                                     </div>
                                 </li>
                                 <li className="w-full overflow-x-scroll dark:border-gray-600">
                                     <div className="flex items-center ps-3">
-                                        <input id="correct-4" type="radio" name="correct" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                        <input id="correct-4" type="radio" name="correct" value={answer4} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                         <label htmlFor="correct-4" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{answer4 ? answer4 : "Answer 4"}</label>
                                     </div>
                                 </li>

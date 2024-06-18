@@ -43,7 +43,7 @@ export default async function DeleteQuizAction(formState: {message: string}, for
     }
 
     if(data === "success") {
-        redirect("/admin/quiz");     
+        redirect("/admin/quiz");
     }
     else{        
         return {
