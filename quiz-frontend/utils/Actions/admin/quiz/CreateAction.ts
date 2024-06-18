@@ -40,7 +40,7 @@ const CreateQuizAction = async (formState: {message: string}, formData: FormData
         const res = await customFetch(url, "POST", body); 
         
         if(res.ok) {
-            data = await res.text();
+            data = await res.json();
         }
         else {
             
