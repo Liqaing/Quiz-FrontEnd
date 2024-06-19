@@ -21,42 +21,46 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
         const question = formData.get("question") as string;
         const quizId = formData.get("id") as string;
         const type = formData.get("type") as string;
-        const answer1 = formData.get("answer0") as string;
-        const answer2 = formData.get("answer1") as string;
-        const answer3 = formData.get("answer2") as string;
-        const answer4 = formData.get("answer3") as string;
         const correctAnswer = formData.get("correctAnswer") as string;
 
-        if (isEmpty(question) || isEmpty(quizId) ||
-            isEmpty(type) || isEmpty(answer1) || isEmpty(answer2) || isEmpty(answer3) ||
-            isEmpty(answer4) || isEmpty(correctAnswer)
-        ) {
+        let answerCount = null
+        try {
+            answerCount = Number(formData.get("answer-count") as string);        
+        }
+        catch(e) {
             return {
                 message: "Invalid input, please fill the form accordingly"
             };
         }
 
-        // Construct answer for submit
-        const answerList = [
-            {
-                "answer": answer1,
-                "correct": "0" == correctAnswer
-            }, 
-            {
-                "answer": answer2,
-                "correct": "1" == correctAnswer
-            },
-            {
-                "answer": answer3,
-                "correct": "2" == correctAnswer
-            },
-            {
-                "answer": answer4,
-                "correct": "3" == correctAnswer
-            }
-        ];
+        if (isEmpty(question) || isEmpty(quizId) ||
+            isEmpty(type) || isEmpty(answerCount) || isEmpty(correctAnswer)
+        ) {
+            return {
+                message: "Invalid input, please fill the form accordingly"
+            };
+        }
         
+        const answerList:Array<{}> = [];
+        // Loop through answer key word to get answer list
+        for (let i = 0; i < answerCount; i++) {
+            const answer = formData.get(`answer${i}`) as string;
+            const isCorrect = `${i}` == correctAnswer
+            
+            if (isEmpty(answer) || isEmpty(isCorrect)
+            ) {
+                return {
+                    message: "Invalid input, please fill the form accordingly"
+                };
+            }
 
+            const answerData = {  
+                "answer": answer,
+                "correct": isCorrect
+            }
+
+            answerList.push(answerData)
+        }
         
         const url = process.env.BASE_API_URL + "api/question/createQNA";
         const body = JSON.stringify(

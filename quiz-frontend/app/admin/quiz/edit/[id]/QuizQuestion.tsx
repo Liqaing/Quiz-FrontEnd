@@ -42,7 +42,7 @@ export default function QuizQuestion(props: {quizId:string}) {
 
     useEffect(() => {       
         FetchQuiz(props.quizId);
-    }, [showAdd]);
+    }, [showAdd, showEdit]);
 
     function handleAddModal() {
         if (showAdd) {
