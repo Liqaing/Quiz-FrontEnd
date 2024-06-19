@@ -80,14 +80,13 @@ export default function QuestionForm(props: {quizId:string | null, formAction:an
                                     <option value="MULTIPLE CHOICE">Multiple Choice</option>
                                 </select>
                             </div>
-
                             {answers.map((ans, index) => (
                                 <div className="col-span-2" key={index}>
                                     <label htmlFor={`answer${index}`} className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Answer {index + 1}</label>
                                     <div className="relative">
                                         <input type="text" hidden name={`answerId${index}`} id={`answerId${index}`} value={ans.answerId} readOnly />
                                         <input type="text" id={`answer${index}`} name={`answer${index}`} value={ans.answer} onChange={e => handleAnswerChange(index, e.target.value)} className="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`Enter answer ${index + 1}`} required />
-                                        <input type="radio" name="correctAnswer" id={`correctAnswer${index}`} value={index} checked={ans.answer == correctAnswer} onChange={() => handleCorrectAnswerChange(index)} className="absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
+                                        <input type="radio" name="correctAnswer" id={`correctAnswer${index}`} value={index} defaultChecked={correctAnswer==ans.answer} onChange={() => handleCorrectAnswerChange(index)} className="absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
                                     </div>
                                 </div>
                             ))}

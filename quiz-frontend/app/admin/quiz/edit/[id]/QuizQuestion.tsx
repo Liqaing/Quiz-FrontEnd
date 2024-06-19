@@ -1,10 +1,12 @@
 "use client"
 
 import QuestionView from "@/components/View/question/QuestionListView";
+import DeleteModal from "@/components/form/DeleteModal/DeleteModel";
 import QuestionForm from "@/components/form/admin/question/add/Question";
 import { QuizData } from "@/type/type";
 import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
+import DeleteQuestionAction from "@/utils/Actions/admin/Question/DeleteQuestion";
 import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
 import { Button } from "@headlessui/react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -37,12 +39,13 @@ export default function QuizQuestion(props: {quizId:string}) {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [questionId, setQuestionId] = useState("");
 
 
     useEffect(() => {       
         FetchQuiz(props.quizId);
-    }, [showAdd, showEdit]);
+    }, [showAdd, showEdit, showDeleteModal]);
 
     function handleAddModal() {
         if (showAdd) {
@@ -64,11 +67,24 @@ export default function QuizQuestion(props: {quizId:string}) {
         }
     }
 
+    function handleDeleteQuestionModal(questionId:string) {
+        if (showDeleteModal) {
+            setShowDeleteModal(false);
+            setQuestionId("");            
+        }
+        else {
+            setShowDeleteModal(true);
+            setQuestionId(questionId);
+        }
+    }
+
     const initialState = {
         message: ""
     };
     const [formState, formAction] = useFormState(CreateQuestionAction, initialState);
     const [EditQuestionformState, EditQuestionformAction] = useFormState(EditQuestionAction, initialState);
+    const [DeleteQuestionformState, DeleteQuestionformAction] = useFormState(DeleteQuestionAction, initialState);
+
 
     return (
         <div className="max-w-screen-xl mx-auto p-2">             
@@ -98,7 +114,7 @@ export default function QuizQuestion(props: {quizId:string}) {
                     </Button>
                 </div>
 
-                <QuestionView data={quizData} handleEditQuestionModal={handleEditQuestionModal}></QuestionView>
+                <QuestionView data={quizData} handleEditQuestionModal={handleEditQuestionModal} handleDeleteModal={handleDeleteQuestionModal}></QuestionView>
 
                 {
                     showAdd && (
@@ -109,6 +125,12 @@ export default function QuizQuestion(props: {quizId:string}) {
                 {
                     showEdit && (
                         <QuestionForm mode="EDIT" quizId={props.quizId} questionId={questionId} formAction={EditQuestionformAction} formState={EditQuestionformState} handleModal={handleEditQuestionModal}></QuestionForm>                    
+                    )
+                }
+
+                {
+                    showDeleteModal && (
+                        <DeleteModal id={questionId} modalHandler={handleDeleteQuestionModal} formAction={DeleteQuestionformAction} formState={DeleteQuestionformState}></DeleteModal>
                     )
                 }
             </div>

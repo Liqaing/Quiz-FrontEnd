@@ -5,11 +5,9 @@ import { useEffect } from "react";
 
 export default function DeleteModal(props: {id:string, formAction:any, formState:any, modalHandler:any}) {
     
-    useEffect(() => {
-        return () => {
-            props.formState.message = "";
-        };
-    }, [props.formState]);
+    useEffect(() => {  
+        if (props.formState) props.formState.message = "";        
+    }, []);
 
     return (
         <form action={props.formAction} >

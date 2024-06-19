@@ -1,11 +1,12 @@
-"use server";
+ "use server";
 
 import { redirect } from "next/navigation";
 import { GetUserRole } from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
+import { headers } from "next/headers";
 
-export default async function DeleteQuizAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
+export default async function DeleteQuestionAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
     let data = null;
     const userRole = await GetUserRole() as string;
     if (userRole != "ROLE_ADMIN") {            
@@ -13,15 +14,15 @@ export default async function DeleteQuizAction(formState: {message: string}, for
     }
 
     try {    
-        const quizId = formData.get("id") as string;        
+        const questionId = formData.get("id") as string;        
         
-        if (isEmpty(quizId)) {
+        if (isEmpty(questionId)) {
             return {
-                message: "Invalid Quiz"
+                message: "Invalid Question"
             };
         }
 
-        const url = process.env.BASE_API_URL + "api/quiz/delete/" + quizId;
+        const url = process.env.BASE_API_URL + "api/question/delete/" + questionId;
         const res = await customFetch(url, "DELETE", null); 
         
         if(res.ok) {
@@ -41,8 +42,10 @@ export default async function DeleteQuizAction(formState: {message: string}, for
         };
     }
 
-    if(data === "success") {
-        redirect("/admin/quiz");
+    if(data) {
+        const headersList = headers();
+        const fullUrl = headersList.get('referer') || "";
+        redirect(fullUrl);
     }
     else{        
         return {
