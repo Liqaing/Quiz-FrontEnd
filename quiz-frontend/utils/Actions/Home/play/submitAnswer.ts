@@ -5,10 +5,10 @@ import { isEmpty } from "@/utils/utils";
 
 export default async function submitAnswer(formState: {message: string, result:string | null}, formData: FormData): Promise<{
     message:string,
-    result:string | null
+    result:string | null,
 }> {
 
-    let data:string = "";
+    let data = null;
     try {        
         const quizId = formData.get("quizId") as string;
 
@@ -64,7 +64,7 @@ export default async function submitAnswer(formState: {message: string, result:s
         
         
         if(res.ok) {
-            data = await res.text() as string;
+            data = await res.json();
         }
         else {
             
@@ -91,7 +91,7 @@ export default async function submitAnswer(formState: {message: string, result:s
         
     return {
         message: "success",
-        result: data
+        result: data?.score as string
     }
     
 }

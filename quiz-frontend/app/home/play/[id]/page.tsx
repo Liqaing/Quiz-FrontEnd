@@ -3,7 +3,7 @@
 
 import PlayQuiz from "@/components/form/Play/PlayQuiz";
 import { QuizData } from "@/type/type";
-import FetchPlayQuiz from "@/utils/API/play/fetchPlayQuiz";
+import FetchPlayQuiz from "@/utils/API/play/fetchAllPlayQuiz";
 import CreateQuizAction from "@/utils/Actions/admin/quiz/CreateAction";
 import submitAnswer from "@/utils/Actions/Home/play/submitAnswer";
 import { useEffect, useState } from "react";

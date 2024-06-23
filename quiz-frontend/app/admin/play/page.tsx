@@ -1,8 +1,8 @@
-import DataTable from "@/components/Table/quiz/DataTable";
-import { fetchTable } from "@/utils/API/quiz/table/fetch-quiz";
 
+import DataTable from "@/components/Table/play/DataTable";
+import { fetchTable } from "@/utils/API/play/table/fetch-play";
 
-export default function Quiz() {
+export default function Play() {
     
     return (
         <section className="block">

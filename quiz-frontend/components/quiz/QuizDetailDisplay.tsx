@@ -29,7 +29,7 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
 
     return (
         <div tabIndex={-1} aria-hidden="true" className="bg-neutral-950/55 flex h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div className="relative p-4 size-3/5">
+            <div className="relative p-4 size-6/12">
                 <div className="relative bg-white h-full rounded-lg shadow dark:bg-[#1a2d47]">
                     <div className="h-full flex flex-col">
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
@@ -44,9 +44,9 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
                             </Button>
                         </div>
                         <div className="h-full flex flex-col items-center justify-between p-4 md:p-5 dark:border-gray-600">
-                            <div>
+                            <p className="w-full text-left">
                                 {quizData?.description}
-                            </div>
+                            </p>
 
                             <div className="w-full flex justify-end gap-3">
                                 <Button 

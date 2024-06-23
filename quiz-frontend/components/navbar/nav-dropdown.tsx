@@ -25,7 +25,7 @@ const Navdropdown = () => {
             </li>
             <li>
               <MenuItem>
-                <a href="/home/my-quiz" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Quiz</a>
+                <a href="/admin/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Play History</a>
               </MenuItem>
             </li>
         </ul>
