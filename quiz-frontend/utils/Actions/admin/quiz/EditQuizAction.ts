@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import {GetUserRole} from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
+import { headers } from "next/headers";
 
 
 const EditQuizAction = async (formState: {message: string}, formData: FormData): Promise<{
@@ -11,10 +12,10 @@ const EditQuizAction = async (formState: {message: string}, formData: FormData):
 }> => {
 
     let data:any = null;
-    const userRole = await GetUserRole() as string;
-    if (userRole != "ROLE_ADMIN") {            
-        redirect("/");
-    }
+    // const userRole = await GetUserRole() as string;
+    // if (userRole != "ROLE_ADMIN") {            
+    //     redirect("/");
+    // }
 
     try {    
         const name = formData.get("name") as string;
@@ -64,7 +65,9 @@ const EditQuizAction = async (formState: {message: string}, formData: FormData):
     }
 
     if (data) {
-        redirect(`/admin/quiz`);
+        const headersList = headers();
+        const fullUrl = headersList.get('referer') || "";
+        redirect(fullUrl);
     }
 
     return {

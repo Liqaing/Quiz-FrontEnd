@@ -11,10 +11,10 @@ const CreateQuizAction = async (formState: {message: string}, formData: FormData
 }> => {
 
     let data:any = null;
-    const userRole = await GetUserRole() as string;
-    if (userRole != "ROLE_ADMIN") {            
-        redirect("/");
-    }
+    // const userRole = await GetUserRole() as string;
+    // if (userRole != "ROLE_ADMIN") {            
+    //     redirect("/");
+    // }
 
     try {    
         const name = formData.get("name") as string;

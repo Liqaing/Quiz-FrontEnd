@@ -6,7 +6,7 @@ export default function QuestionView(props: {data: QuizData | null, handleEditQu
     return (
         <div className="w-full">
             {
-                props.data?.questions.map((d:Question, index:any) => {
+                props.data?.questions?.map((d:Question, index:any) => {
                     const updatDate = new Date(d.updatedAt);
                     return (
                         <div key={index} className="md:h-auto py-2 px-4 my-2 flex flex-col bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

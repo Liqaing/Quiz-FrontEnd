@@ -51,21 +51,40 @@ const LoginAction = async (currentState: {message: string}, formData: FormData) 
             const data: tokenResponse = await res.json();
             console.log(data);
             cookies().set("quiz-session", data.accessToken, { httpOnly: true });
-            cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });
+            cookies().set("quiz-session-refresh", data.refreshToken, { httpOnly: true });            
         }
-        else if (res.status == 401) {
-            return {
-                message: "Username and password is incorrect"
-            };
+        else {
+            let err = null;
+            try {
+                err = await res.text();
+            }
+            catch (error) {}
+            
+            if (err) {
+                return {
+                    message: err
+                };
+            }
         }
 
+        if (!res.ok) {
+            if (res.status == 401) {
+                return {
+                    message: "Username and password is incorrect"
+                };
+            }
+            else {
+                throw new Error("Something went wrong");
+            }
+        }        
+        
     } 
     catch (error : any) {
         DeleteCookie();
         throw new Error(error);
     }
+    redirect("/");        
     
-    redirect("/");
 }
 
 export default LoginAction;

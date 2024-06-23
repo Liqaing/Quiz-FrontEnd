@@ -1,8 +1,10 @@
 'use client';
 
+import { Button } from "@headlessui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import QuizDetailDisplay from "./QuizDetailDisplay";
 
 interface Quiz {
     id: string,
@@ -21,6 +23,9 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
   const [isEnd, setIsEnd] = useState<boolean>();
   const [page, setPage] = useState(0);
   const [ref, inView] = useInView();
+
+  const [showPlay, setShowPlay] = useState(false);
+  const [quizId, setQuizId] = useState("");
 
   const first = async () => {
     const data = await prop.FetchQuiz({page: 0});
@@ -47,6 +52,17 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
     }
   }
 
+  async function handleShowPlay(quizId: string) {
+    if (showPlay) {
+      setShowPlay(false);
+      setQuizId("");
+    }
+    else {
+      setShowPlay(true);
+      setQuizId(quizId);
+    }
+  }
+
   try {  
     // Call loadMoreQuiz function whenever spinning come into view
     useEffect(() => {
@@ -58,20 +74,24 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
     return (
         <>
           {quizzes?.map((quiz: Quiz) => (
-            <div key={quiz.id} className="sm:w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <Link href="#">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{quiz.name}</h5>
-              </Link>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{quiz.description}</p>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                <small>Create: {new Date(quiz.createdAt).toDateString()}</small>
-              </p>
-              <Link href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Play
-                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                </svg>
-              </Link>
+            <div key={quiz.id} className="sm:w-full flex flex-col justify-between h-60 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div>                
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{quiz.name}</h5>                
+                <p className="mb-3 line-clamp-3 font-normal text-gray-700 dark:text-gray-400">{quiz.description}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  <small>Create: {new Date(quiz.createdAt).toDateString()}</small>
+                </p>
+              </div>
+
+              <div className="w-full flex justify-end">
+                <Button onClick={() => handleShowPlay(quiz.id)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Play
+                  <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                  </svg>
+                </Button>
+              </div>
+              
             </div>
           ))}
 
@@ -84,6 +104,12 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
                   <span className="sr-only">Loading more quiz</span>
               </div>
           </div>
+
+          {
+            showPlay && (
+              <QuizDetailDisplay quizId={quizId} modelHandler={handleShowPlay}></QuizDetailDisplay>
+            )
+          }
         </>
     )
   }

@@ -4,13 +4,14 @@ import { redirect } from "next/navigation";
 import { GetUserRole } from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
+import { headers } from "next/headers";
 
 export default async function DeleteQuizAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
     let data = null;
-    const userRole = await GetUserRole() as string;
-    if (userRole != "ROLE_ADMIN") {            
-        redirect("/");
-    }
+    // const userRole = await GetUserRole() as string;
+    // if (userRole != "ROLE_ADMIN") {            
+    //     redirect("/");
+    // }
 
     try {    
         const quizId = formData.get("id") as string;        
@@ -42,7 +43,9 @@ export default async function DeleteQuizAction(formState: {message: string}, for
     }
 
     if(data === "success") {
-        redirect("/admin/quiz");
+        const headersList = headers();
+        const fullUrl = headersList.get('referer') || "";
+        redirect(fullUrl);
     }
     else{        
         return {

@@ -3,7 +3,7 @@ export type QuizData = {
     name: string,
     description: string,
     visibility: string,
-    questions: Array<Question>,
+    questions: Array<Question> | null,
     createdAt: string,
     updatedAt: string
 }
