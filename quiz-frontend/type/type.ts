@@ -24,3 +24,26 @@ export type Answer = {
     updatedAt: string,
     correct: boolean
 }
+
+export type PlayHistory = {
+    id: string,
+    score: number,
+    answered:Array<PlayQuestion>,
+    quizId:string,
+    quizName:string,
+    quizDescription: string,
+    createdAt:string,
+    updatedAt:string
+}
+
+export type PlayQuestion = {
+    question:string,
+    type:string,
+    answers:Array<PlayAnswer>
+}
+
+export type PlayAnswer = {
+    answer: string,
+    correct: boolean,
+    pick: boolean
+}

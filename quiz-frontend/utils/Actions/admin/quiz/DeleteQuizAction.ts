@@ -43,9 +43,9 @@ export default async function DeleteQuizAction(formState: {message: string}, for
     }
 
     if(data === "success") {
-        const headersList = headers();
-        const fullUrl = headersList.get('referer') || "";
-        redirect(fullUrl);
+        return {
+            message: "success"
+        };
     }
     else{        
         return {

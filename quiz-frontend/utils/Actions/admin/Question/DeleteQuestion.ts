@@ -43,9 +43,14 @@ export default async function DeleteQuestionAction(formState: {message: string},
     }
 
     if(data) {
-        const headersList = headers();
-        const fullUrl = headersList.get('referer') || "";
-        redirect(fullUrl);
+
+        return {
+            message: "success"
+        };
+
+        // const headersList = headers();
+        // const fullUrl = headersList.get('referer') || "";
+        // redirect(fullUrl);
     }
     else{        
         return {

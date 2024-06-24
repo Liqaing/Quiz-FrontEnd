@@ -43,7 +43,7 @@ export default async function DeleteUserAction(formState: {message: string}, for
     }
 
     if(data === "success") {
-        redirect("/admin/user");     
+        redirect("/admin/user");
     }
     else{        
         return {

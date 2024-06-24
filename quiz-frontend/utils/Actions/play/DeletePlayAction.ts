@@ -44,9 +44,9 @@ export default async function DeletePlayAction(formState: {message: string}, for
     }
 
     if(data) {
-        const headersList = headers();
-        const fullUrl = headersList.get('referer') || "";
-        redirect(fullUrl);
+        return {
+            message: "success"
+        };
     }
     else{        
         return {
