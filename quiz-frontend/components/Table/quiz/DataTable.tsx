@@ -165,7 +165,7 @@ const DataTable = (props: {fetchTable: Function}) => {
           <div className="flex gap-3">
             <Order orderSortFunc={orderSortFunc} />
             <Search searchPage={searchPage} />
-          </div>            
+          </div>
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">  

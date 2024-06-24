@@ -29,9 +29,9 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
 
     return (
         <div tabIndex={-1} aria-hidden="true" className="bg-neutral-950/55 flex h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div className="relative p-4 size-6/12">
-                <div className="relative bg-white h-full rounded-lg shadow dark:bg-[#1a2d47]">
-                    <div className="h-full flex flex-col">
+            <div className="relative p-4 lg:size-6/12 md:size-8/12 sm:size-10/12">
+                <div className="w-4/5 w-full relative bg-white h-fit rounded-lg shadow dark:bg-[#1a2d47]">
+                    <div className=" h-full flex flex-col">
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                 {quizData?.name}
@@ -43,8 +43,8 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
                                 <span className="sr-only">Close quiz</span>
                             </Button>
                         </div>
-                        <div className="h-full flex flex-col items-center justify-between p-4 md:p-5 dark:border-gray-600">
-                            <p className="w-full text-left">
+                        <div className="h-fit flex flex-col items-center justify-between p-4 md:p-5 dark:border-gray-600">
+                            <p className="w-full text-left mb-12">
                                 {quizData?.description}
                             </p>
 

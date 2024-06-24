@@ -7,8 +7,8 @@ import PageSize from "@/components/Table/PageSize"
 import { order, orderBy, pageSize, DataResponse, tableResponse} from "@/utils/API/quiz/table/data"
 import { useFormState } from "react-dom"
 import DeleteModal from "@/components/form/DeleteModal/DeleteModel"
-import DeleteQuizAction from "@/utils/Actions/admin/quiz/DeleteQuizAction"
 import PlayContent from "./PlayContent"
+import DeletePlayAction from "@/utils/Actions/play/DeletePlayAction"
 
 const DataTable = (props: {fetchTable: Function}) => {
 
@@ -118,7 +118,7 @@ const DataTable = (props: {fetchTable: Function}) => {
   const initialState = {
       message: ""
   };
-  const [DelteFormState, DeleteFormAction] = useFormState(DeleteQuizAction, initialState);
+  const [DelteFormState, DeleteFormAction] = useFormState(DeletePlayAction, initialState);
  
   return (
     <div className="h-full w-full flex flex-col justify-between items-center gap-2">
