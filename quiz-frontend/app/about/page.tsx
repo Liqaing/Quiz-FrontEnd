@@ -7,7 +7,7 @@ const page = () => {
         Develop By E1 Group1 RUPP G25
       </div>
       <section className='mt-20 flex flex-wrap justify-evenly gap-x-16 gap-y-16'>
-        <Profile name="Hor KimHouy" position="Team Leader" image="/HorKimHouy.jpg"/>
+        <Profile name="Hor KimHouy" position="Team Leader" image="/kimhouy.jpg"/>
         <Profile name="Hout Rithy" position="Backup Leader" image="/defaultProfile.bmp"/>
         <Profile name="Vorn Navatra" position="Team Member" image="/defaultProfile.bmp"/>
         <Profile name="Oem YongSinh" position="Team Member" image="/defaultProfile.bmp"/>
@@ -22,7 +22,7 @@ const page = () => {
         <div className='mt-16 bg-slate-400 px-8 py-4 rounded-2xl'>
           <div className='text-lg sm:text-xl font-bold'>Backend Development</div>
           <div className='mt-10 flex flex-wrap justify-start gap-x-16 gap-y-16'>
-            <Profile name="Hor KimHouy" position="Backend Developer" image="/HorKimHouy.jpg"/>
+            <Profile name="Hor KimHouy" position="Backend Developer" image="/kimhouy.jpg"/>
             <Profile name="Hout Rithy" position="Backend Support" image="/defaultProfile.bmp"/>
           </div>
         </div>
@@ -31,7 +31,7 @@ const page = () => {
           <div className='text-lg sm:text-xl font-bold p-4'>Frontend Development</div>
           <div className='mt-10 flex flex-wrap justify-start gap-x-16 gap-y-16'>
             <Profile name="Hout Rithy" position="Frontend Developer" image="/defaultProfile.bmp"/>
-            <Profile name="Hor KimHouy" position="Frontend Support" image="/HorKimHouy.jpg"/>
+            <Profile name="Hor KimHouy" position="Frontend Support" image="/kimhouy.jpg"/>
           </div>
         </div>
 
