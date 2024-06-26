@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { GetUserRole } from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
-import { Router } from "next/router";
 
 export default async function DeleteUserAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
     let data = null;

@@ -14,20 +14,21 @@ export default function QuestionView(props: {data: QuizData | null, handleEditQu
                                 <p className="py-1">{d.type}</p>
 
                                 <div className="flex gap-2">
-                                    <p className="p-1 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        15 seconds
+                                    <p className="p-1 bg-white w-fit md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                        1 Points
                                     </p>
-                                    <p className="p-1 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    Updated - {((updatDate.getMonth() > 8) ? (updatDate.getMonth() + 1) : ('0' + (updatDate.getMonth() + 1))) + '/' + ((updatDate.getDate() > 9) ? updatDate.getDate() : ('0' + updatDate.getDate())) + '/' + updatDate.getFullYear()}
+                                    <p className="p-1 bg-white w-fit md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <span className="xs:hidden sm:inline-block">Updated -</span>&nbsp;
+                                    {((updatDate.getMonth() > 8) ? (updatDate.getMonth() + 1) : ('0' + (updatDate.getMonth() + 1))) + '/' + ((updatDate.getDate() > 9) ? updatDate.getDate() : ('0' + updatDate.getDate())) + '/' + updatDate.getFullYear()}
                                     </p>
                                 </div>  
                             </div>
 
-                            <div className="w-4/5">
+                            <div className="w-full md:my-0 my-2">
                                 <p className="lg:text-lg md:text-base font-medium tracking-tight text-gray-900 dark:text-white">{d.question}</p>
                             </div>
                             
-                            <div className="grid grid-cols-2 gap-2 my-3">
+                            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-4 my-3 mb-5">
                                 {
                                     d.answers.map((answer:Answer, answerIndex:any) => {
                                         return (
@@ -55,7 +56,7 @@ export default function QuestionView(props: {data: QuizData | null, handleEditQu
                                 
                             </div>
 
-                            <div className="inline-flex rounded-md shadow-sm sm:w-fit sm:mt-0 sm:w-fit w-full justify-end" role="group">
+                            <div className="w-full inline-flex rounded-md shadow-sm sm:mt-0 justify-end" role="group">
                                 <Button onClick={() => props.handleEditQuestionModal(d.id)} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-blue-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
                                 <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M17.414 2.586a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-1.272.586H4a1 1 0 0 1-1-1v-2.142a2 2 0 0 1 .586-1.272l10-10a2 2 0 0 1 2.828 0zm-2.828 2.828l-10 10H4v-1.586l10-10 1.586 1.586zm-1.414-1.414L14 4.172 15.828 6 17 4.828 14.828 2.586z"/>

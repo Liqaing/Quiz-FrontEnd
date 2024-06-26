@@ -4,9 +4,10 @@ import QuizQuestion from "./QuizQuestion";
 
 export default function EditQuiz({ params }: { params: { id: string, name: string, visibility:string, createdAt:string, description:string } }) {
 
+    
     return (
-        <section className="sm:px-12 xs:px-6">                    
-            <div className="max-w-screen-xl mx-auto p-2 mt-5">
+        <section className="px-4">   
+            <div className="max-w-screen-xl mx-auto mt-5">
                 <QuizQuestion quizId={params.id}></QuizQuestion>
                 {/* <Link               
                     href="/admin/quiz" type="button" 

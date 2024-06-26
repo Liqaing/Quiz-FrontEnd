@@ -27,20 +27,20 @@ export default function ViewPlay({ params }: { params: { id: string } }) {
     }, [])
 
     return (
-        <section className="sm:px-12 xs:px-6">                    
-            <div className="max-w-screen-xl mx-auto p-2 mt-5">
+        <section className="px-4">                    
+            <div className="max-w-screen-xl mx-auto mt-5">
                     
-                <div className="flex justify-between border-b-2 pb-4">
-                    <div className="w-10/12">
+                <div className="flex lg:flex-row flex-col justify-between border-b-2 pb-4">
+                    <div className="lg:w-10/12 w-full">
                         <p className="lg:text-lg md:text-base font-semibold uppercase text-gray-900 dark:text-white">{playHistory?.quizName}</p>
                         <p className="lg:text-md md:text-sm my-1 text-[0.8rem] hyphens-auto font-extralight">
                             {playHistory?.quizDescription}
                         </p>
                     </div>
-                    <div className="w-2/12">
+                    <div className="lg:w-2/12 w-full lg:block flex justify-end gap-3 md:mt-0 mt-5">
                         {                     
                             date && (
-                                <p className="text-end lg:text-md md:text-sm">                            
+                                <p className="text-end lg:text-sm text-xs">                            
                                     Created - {((date?.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}                
                                 </p>
                             )
@@ -49,7 +49,7 @@ export default function ViewPlay({ params }: { params: { id: string } }) {
                 </div>
                 
                 <div className="mt-4">
-                    <p className="lg:text-base md:text-sm font-semibold uppercase text-gray-900 dark:text-white">Total Score : {playHistory?.score} / {playHistory?.answered.length}</p>
+                    <p className="lg:text-lg md:text-base font-semibold uppercase text-gray-900 dark:text-white">Total Score : {playHistory?.score} / {playHistory?.answered.length}</p>
 
                         
                     <PlayHistoryView data={playHistory}></PlayHistoryView>

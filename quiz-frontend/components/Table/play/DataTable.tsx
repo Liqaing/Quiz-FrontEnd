@@ -118,7 +118,7 @@ const DataTable = (props: {fetchTable: Function}) => {
   const initialState = {
       message: ""
   };
-  const [DelteFormState, DeleteFormAction] = useFormState(DeletePlayAction, initialState);
+  const [DeleteFormState, DeleteFormAction] = useFormState(DeletePlayAction, initialState);
  
   return (
     <div className="h-full w-full flex flex-col justify-between items-center gap-2">
@@ -141,7 +141,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         {
           showDelete &&
           (
-            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DelteFormState} id={quizId}></DeleteModal>
+            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DeleteFormState} id={quizId}></DeleteModal>
           )
         }
         

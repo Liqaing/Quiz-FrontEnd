@@ -12,8 +12,8 @@ export default async function User() {
     }
 
     return (
-        <section className="block ">
-            <div className="max-w-screen-xl mx-auto p-2">
+        <section className="block">
+            <div className="max-w-screen-xl mx-auto">
                 <DataTable fetchTable={fetchTable}/>
             </div>
             

@@ -24,7 +24,7 @@ export default function PlayHistoryView(props: {data: PlayHistory | null}) {
                                 <p className="lg:text-lg md:text-base font-medium tracking-tight text-gray-900 dark:text-white">{`${index + 1}. ${d.question}`}</p>
                             </div>
                             
-                            <div className="grid grid-cols-2 gap-2 my-3">
+                            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-3 my-3 mb-5">
                                 {
                                     d.answers.map((answer:PlayAnswer, answerIndex:any) => {
                                         return (

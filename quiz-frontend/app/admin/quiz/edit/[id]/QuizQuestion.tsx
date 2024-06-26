@@ -8,6 +8,7 @@ import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
 import DeleteQuestionAction from "@/utils/Actions/admin/Question/DeleteQuestion";
 import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
+import DeleteQuizAction from "@/utils/Actions/admin/quiz/DeleteQuizAction";
 import { Button } from "@headlessui/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -67,7 +68,7 @@ export default function QuizQuestion(props: {quizId:string}) {
         }
     }
 
-    function handleDeleteQuestionModal(questionId:string) {
+    function handleDeleteModal(questionId:string) {
         if (showDeleteModal) {
             setShowDeleteModal(false);
             setQuestionId("");            
@@ -85,36 +86,45 @@ export default function QuizQuestion(props: {quizId:string}) {
     const [EditQuestionformState, EditQuestionformAction] = useFormState(EditQuestionAction, initialState);
     const [DeleteQuestionformState, DeleteQuestionformAction] = useFormState(DeleteQuestionAction, initialState);
 
+    const [DelteFormState, DeleteFormAction] = useFormState(DeleteQuizAction, initialState);
 
     return (
         <div className="max-w-screen-xl mx-auto p-2">             
 
-            <div className="flex justify-between border-b-2 pb-4">
-                <div className="w-10/12">
+            <div className="flex lg:flex-row flex-col justify-between border-b-2 pb-4">
+                <div className="lg:w-10/12 w-full">
                     <p className="lg:text-lg md:text-base font-semibold uppercase text-gray-900 dark:text-white">{name}</p>
-                    <p className="lg:text-md md:text-sm my-1 text-[0.8rem] hyphens-auto font-extralight">
+                    <p className="lg:text-base md:text-sm my-1 text-[0.8rem] hyphens-auto font-extralight">
                         {description}
                     </p>
                 </div>
-                <div className="w-2/12">
-                    <p className="text-end lg:text-md md:text-sm">
+                <div className="lg:w-2/12 w-full lg:block flex justify-end gap-3 md:mt-0 mt-5">
+                    <p className="text-end lg:text-sm text-xs">
                         Created - {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}                
                     </p>
-                    <p className="text-end lg:text-md md:text-sm mt-2">
+                    <p className="text-end lg:text-sm text-xs lg:mt-2">
                         Visibility - {visibility}
                     </p>
                 </div>
+                
+                <Button onClick={() => handleDeleteModal(props.quizId)} className="sm:w-24 w-20 inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                  <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
+                  </svg>
+                  Delete
+                </Button>
+
             </div>
             <div className="mt-4">
                 <div className="w-full flex justify-between">
                     <p className="lg:text-lg md:text-base font-semibold uppercase text-gray-900 dark:text-white">Question</p>
 
-                    <Button onClick={handleAddModal} className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Button onClick={handleAddModal} className="text-white md:text-sm text-xs inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add Question
                     </Button>
                 </div>
 
-                <QuestionView data={quizData} handleEditQuestionModal={handleEditQuestionModal} handleDeleteModal={handleDeleteQuestionModal}></QuestionView>
+                <QuestionView data={quizData} handleEditQuestionModal={handleEditQuestionModal} handleDeleteModal={handleDeleteModal}></QuestionView>
 
                 {
                     showAdd && (
@@ -130,7 +140,7 @@ export default function QuizQuestion(props: {quizId:string}) {
 
                 {
                     showDeleteModal && (
-                        <DeleteModal id={questionId} modalHandler={handleDeleteQuestionModal} formAction={DeleteQuestionformAction} formState={DeleteQuestionformState}></DeleteModal>
+                        <DeleteModal id={questionId} modalHandler={handleDeleteModal} formAction={DeleteQuestionformAction} formState={DeleteQuestionformState}></DeleteModal>
                     )
                 }
             </div>

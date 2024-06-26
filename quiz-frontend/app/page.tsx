@@ -1,6 +1,5 @@
 import Quizzes from "@/components/quiz/quiz";
 import { FetchQuiz } from "../utils/Actions/Home/quiz-actions";
-import { Suspense } from "react";
 
 export default function home() {
   return (
