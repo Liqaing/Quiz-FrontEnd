@@ -36,9 +36,6 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const description = searchParams.get("description");
     const date = new Date(createDate);
 
-    // const baseUrl = usePathname();    
-    // const currentUrl:string = `${baseUrl}?name=${name}&visibility=${visibility}&createdAt${createDate}&description=${description}`;
-
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);

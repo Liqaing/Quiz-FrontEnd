@@ -13,8 +13,10 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
 
     let data:any = null;
     const userRole = await GetUserRole() as string;
-    if (userRole != "ROLE_ADMIN") {            
-        redirect("/");
+    if (userRole != "ROLE_ADMIN" && userRole != "ROLE_TEACHER") {        
+        return {
+            message: "Unauthorized"
+        }
     }
 
     try {

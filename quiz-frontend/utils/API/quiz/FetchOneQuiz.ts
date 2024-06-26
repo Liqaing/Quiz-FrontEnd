@@ -4,7 +4,7 @@ import { customFetch } from "@/utils/API/CustomFetch";
 
 export async function FetchOneQuiz(id:string | null) {
     
-    const url = new URL(`${process.env.BASE_API_URL}api/quiz/find/${id}` as string);   
+    const url = new URL(`${process.env.BASE_API_URL}api/play/quiz/${id}` as string);   
 
     try {
 

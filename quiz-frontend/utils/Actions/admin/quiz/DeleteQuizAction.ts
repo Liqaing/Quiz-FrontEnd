@@ -8,10 +8,12 @@ import { headers } from "next/headers";
 
 export default async function DeleteQuizAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
     let data = null;
-    // const userRole = await GetUserRole() as string;
-    // if (userRole != "ROLE_ADMIN") {            
-    //     redirect("/");
-    // }
+    const userRole = await GetUserRole() as string;
+    if (userRole != "ROLE_ADMIN" && userRole != "ROLE_TEACHER") {        
+        return {
+            message: "Unauthorized"
+        }
+    }
 
     try {    
         const quizId = formData.get("id") as string;        

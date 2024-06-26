@@ -9,10 +9,10 @@ import { GetUserRole } from "../Auth/GetUserRole";
 export default async function DeletePlayAction(formState: {message: string}, formData:FormData): Promise<{ message: string }> {
     
     let data = null;
-    const userRole = await GetUserRole() as string;
-    if (userRole != "ROLE_ADMIN") {            
-        redirect("/");
-    }
+    // const userRole = await GetUserRole() as string;
+    // if (userRole != "ROLE_ADMIN") {            
+    //     redirect("/");
+    // }
 
     try {    
         const playId = formData.get("id") as string;        

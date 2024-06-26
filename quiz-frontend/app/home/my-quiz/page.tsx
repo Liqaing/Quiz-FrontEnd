@@ -90,7 +90,7 @@ export default function MyQuiz() {
                     </div>
 
                     <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">  
-                        <QuizContent data={quiz} handleDeleteModal={handleDeleteModal} handleEditForm={handleEditModal}/>
+                        <QuizContent path="/home/my-quiz" data={quiz} handleDeleteModal={handleDeleteModal} handleEditForm={handleEditModal}/>
                     </div>
 
                     {
