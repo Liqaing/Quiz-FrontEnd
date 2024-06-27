@@ -3,12 +3,14 @@
 import QuestionView from "@/components/View/question/QuestionListView";
 import DeleteModal from "@/components/form/DeleteModal/DeleteModel";
 import QuestionForm from "@/components/form/admin/question/add/Question";
+import QuizDetailFrom from "@/components/form/admin/quiz/QuizDetail";
 import { QuizData } from "@/type/type";
 import { FetchDisplayQuiz } from "@/utils/API/quiz/FetchDisplayQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
 import DeleteQuestionAction from "@/utils/Actions/admin/Question/DeleteQuestion";
 import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
 import DeleteQuizAction from "@/utils/Actions/admin/quiz/DeleteQuizAction";
+import EditQuizAction from "@/utils/Actions/admin/quiz/EditQuizAction";
 import { Button } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -46,6 +48,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const [questionId, setQuestionId] = useState("");
     const [quizId, setQuizId] = useState("");
 
+    const [showEditQuiz, setshowEditQuiz] = useState(false);
 
     useEffect(() => {       
         FetchQuiz(props.quizId);
@@ -93,6 +96,17 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
         }
     }
 
+    function handleEditQuizModal(quizId: string) {
+        if (showEditQuiz) {
+          setshowEditQuiz(false);
+          setQuizId("");
+        }
+        else {
+          setshowEditQuiz(true);
+          setQuizId(quizId);
+        }
+    }
+
     const initialState = {
         message: ""
     };
@@ -100,6 +114,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const [EditQuestionformState, EditQuestionformAction] = useFormState(EditQuestionAction, initialState);
     const [DeleteQuestionformState, DeleteQuestionformAction] = useFormState(DeleteQuestionAction, initialState);
     const [DelteQuizFormState, DeleteQuizFormAction] = useFormState(DeleteQuizAction, initialState);
+    const [EditQuizFormState, EditQuizformAction] = useFormState(EditQuizAction, initialState);
 
     return (
         <div className="max-w-screen-xl mx-auto p-2">             
@@ -113,12 +128,21 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
                         </svg>
                         <span>Go back</span>
                     </Link>
-                    <Button onClick={() => handleDeleteQuizModal(props.quizId)} className="inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
-                        <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
-                        </svg>
-                        Delete Quiz
-                    </Button>  
+                    <div className="flex gap-2">
+                        <Button onClick={() => handleEditQuizModal(props.quizId)} className="inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                            <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
+                            </svg>
+                            Edit&nbsp;<span className="md:inline hidden">Quiz</span>
+                        </Button>
+                        <Button onClick={() => handleDeleteQuizModal(props.quizId)} className="inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                            <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
+                            </svg>
+                            Delete&nbsp;<span className="md:inline hidden">Quiz</span>
+                        </Button>
+                    </div>
+
                 </div>
 
                 <div className="w-full">                    
@@ -169,6 +193,13 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
                 {
                     showDeleteQuizModal && (
                         <DeleteModal id={quizId} modalHandler={handleDeleteQuizModal} formAction={DeleteQuizFormAction} formState={DelteQuizFormState}></DeleteModal>
+                    )
+                }
+
+                {
+                    showEditQuiz &&
+                    (
+                        <QuizDetailFrom mode="EDIT" formAction={EditQuizformAction} formState={EditQuizFormState} quizId={quizId} modelHandler={handleEditQuizModal}></QuizDetailFrom>
                     )
                 }
             </div>

@@ -10,7 +10,7 @@ import DeleteModal from "@/components/form/DeleteModal/DeleteModel"
 import PlayContent from "./PlayContent"
 import DeletePlayAction from "@/utils/Actions/play/DeletePlayAction"
 
-const DataTable = (props: {fetchTable: Function}) => {
+const DataTable = (props: {fetchTable: Function, pathBack:string}) => {
 
   const [data, setData] = useState<DataResponse | null>(null);
   const [page, setPage] = useState<number>(0);
@@ -133,7 +133,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">  
-          <PlayContent data={data} handleDeleteModal={handleDeleteModal} />
+          <PlayContent data={data} handleDeleteModal={handleDeleteModal} pathBack={props.pathBack}/>
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
@@ -141,7 +141,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         {
           showDelete &&
           (
-            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DeleteFormState} id={quizId}></DeleteModal>
+            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DeleteFormState} id={quizId} pathBack={null}></DeleteModal>
           )
         }
         

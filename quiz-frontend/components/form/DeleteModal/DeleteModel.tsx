@@ -1,17 +1,26 @@
-import Link from "next/link";
+"use client";
+
 import FormSubmit from "./formsubmit";
 import { Button } from "@headlessui/react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function DeleteModal(props: {id:string, formAction:any, formState:any, modalHandler:any}) {
+export default function DeleteModal(props: {id:string, formAction:any, formState:any, modalHandler:any, pathBack:string | null}) {
     
+    const router = useRouter();
+
     useEffect(() => {  
         if (props.formState) props.formState.message = "";        
     }, []);
 
     useEffect(() => {
         if(props.formState) {
-            if (props.formState.message == "success") props.modalHandler();
+            if (props.formState.message == "success") {
+                props.modalHandler();
+                if (props.pathBack) {
+                    router.replace(props.pathBack);
+                }
+            }
         } 
     })
 

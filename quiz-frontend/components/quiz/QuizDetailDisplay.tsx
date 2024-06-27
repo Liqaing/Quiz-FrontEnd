@@ -2,8 +2,7 @@ import Link from "next/link";
 import { QuizData } from "@/type/type";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
-import FormSubmit from "../form/DeleteModal/formsubmit";
-import { FetchDisplayQuiz } from "@/utils/API/quiz/FetchDisplayQuiz";
+import { FetchPlayQuiz } from "@/utils/API/quiz/FetchPlayQuiz";
 
 export default function QuizDetailDisplay(props: {quizId:string | null, modelHandler:any}) {
 
@@ -16,7 +15,7 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
 
     async function getQuiz() {
         if (props.quizId) {
-            const data = await FetchDisplayQuiz(props.quizId);
+            const data = await FetchPlayQuiz(props.quizId);
             if (data) {
                 setquizData(data);                
             }
@@ -56,7 +55,7 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
                                     Cancel
                                 </Button>
                                 <Link href={`/home/play/${quizData?.id}`} type="submit" className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">                                    
-                                    start 
+                                    start
                                 </Link>
                             </div>
                         </div>

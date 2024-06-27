@@ -43,7 +43,7 @@ export default async function DeletePlayAction(formState: {message: string}, for
         };
     }
 
-    if(data) {
+    if(data) {        
         return {
             message: "success"
         };

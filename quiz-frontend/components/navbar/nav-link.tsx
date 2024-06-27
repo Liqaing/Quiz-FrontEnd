@@ -33,23 +33,24 @@ const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:String}
                                     <a href="/admin/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Play History</a>
                                 </li>
                             </ul>
-                            <div className="py-1">
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                            </div>
                         </div>
                     )}                                                                       
                     
-                </li>            
+                </li>
                 
                 
 
-                {isUserLogin && 
+                {(isUserLogin) && 
                     <>
-                        <li>
-                            <Link href='/home/my-quiz' className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${ pathName.startsWith("/about") ? "text-blue-700 underline underline-offset-4" : "text-white-700"}`}>
-                                My Quiz
-                            </Link>
-                        </li>
+                        {
+                            (userRole == "ROLE_ADMIN" || userRole == "ROLE_ADMIN") && (
+                            <li>
+                                <Link href='/home/my-quiz' className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${ pathName.startsWith("/about") ? "text-blue-700 underline underline-offset-4" : "text-white-700"}`}>
+                                    My Quiz
+                                </Link>
+                            </li>
+                        )}
+                        
                         
                         <li>
                             <Link href='/home/play-history' className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${ pathName.startsWith("/about") ? "text-blue-700 underline underline-offset-4" : "text-white-700"}`}>

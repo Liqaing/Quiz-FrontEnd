@@ -7,7 +7,7 @@ export default function Play() {
     return (
         <section className="block">
             <div className="max-w-screen-xl mx-auto">
-                <DataTable fetchTable={fetchTable}/>
+                <DataTable fetchTable={fetchTable} pathBack="/admin/play"/>
             </div>
         </section>
     )

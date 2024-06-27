@@ -6,7 +6,7 @@ export default function PlayHistory() {
     return (
         <section className="block">
             <div className="max-w-screen-xl mx-auto p-2">
-                <DataTable fetchTable={fetchTable}/>
+                <DataTable fetchTable={fetchTable} pathBack="/home/play-history"/>
             </div>
         </section>
     )

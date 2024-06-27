@@ -1,5 +1,5 @@
 'use server';
-// import { FindAll } from "@/utils/API/quiz/quiz-api";
+
 import { customFetch } from "@/utils/API/CustomFetch";
 
 export async function FetchQuiz(prop: {page:Number}) {
