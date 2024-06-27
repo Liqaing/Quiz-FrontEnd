@@ -4,7 +4,7 @@ import QuestionView from "@/components/View/question/QuestionListView";
 import DeleteModal from "@/components/form/DeleteModal/DeleteModel";
 import QuestionForm from "@/components/form/admin/question/add/Question";
 import { QuizData } from "@/type/type";
-import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
+import { FetchDisplayQuiz } from "@/utils/API/quiz/FetchDisplayQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
 import DeleteQuestionAction from "@/utils/Actions/admin/Question/DeleteQuestion";
 import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
@@ -22,7 +22,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const [quizData, setQuizData] = useState<QuizData | null>(null);
 
     async function FetchQuiz(quizId:string) {
-        const data = await FetchOneQuiz(quizId);
+        const data = await FetchDisplayQuiz(quizId);
         if (data) {
             setQuizData(data);
         }
@@ -42,7 +42,9 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeleteQuizModal, setShowDeleteQuizModal] = useState(false);
     const [questionId, setQuestionId] = useState("");
+    const [quizId, setQuizId] = useState("");
 
 
     useEffect(() => {       
@@ -80,14 +82,24 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
         }
     }
 
+    function handleDeleteQuizModal(quizId:string) {
+        if (showDeleteQuizModal) {
+            setShowDeleteQuizModal(false);
+            setQuizId("");            
+        }
+        else {
+            setShowDeleteQuizModal(true);
+            setQuizId(quizId);
+        }
+    }
+
     const initialState = {
         message: ""
     };
     const [formState, formAction] = useFormState(CreateQuestionAction, initialState);
     const [EditQuestionformState, EditQuestionformAction] = useFormState(EditQuestionAction, initialState);
     const [DeleteQuestionformState, DeleteQuestionformAction] = useFormState(DeleteQuestionAction, initialState);
-
-    const [DelteFormState, DeleteFormAction] = useFormState(DeleteQuizAction, initialState);
+    const [DelteQuizFormState, DeleteQuizFormAction] = useFormState(DeleteQuizAction, initialState);
 
     return (
         <div className="max-w-screen-xl mx-auto p-2">             
@@ -101,7 +113,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
                         </svg>
                         <span>Go back</span>
                     </Link>
-                    <Button onClick={() => handleDeleteModal(props.quizId)} className="inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
+                    <Button onClick={() => handleDeleteQuizModal(props.quizId)} className="inline-flex justify-center items-center sm:px-4 sm:py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-red-400 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:focus:ring-blue-500 dark:focus:text-white xs:py-1 xs:px-2">
                         <svg className="w-3 h-3 me-2" aria-hidden="true" xmlns="http: //www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M7 4V3a2 2 0 1 1 4 0v1h5a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h4zm-3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9zm5 1a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10zm4 0a1 1 0 1 0-2 0v6a1 1 0 0 0 2 0V10z"/>
                         </svg>
@@ -117,7 +129,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
                 </div>
                 <div className="w-full flex justify-end gap-3 mt-5 text-end lg:text-sm text-xs">
                     <p>
-                        Created - {((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}                
+                        Created - {(( date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}                
                     </p>
                     <p>
                         Visibility - {visibility}
@@ -151,6 +163,12 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
                 {
                     showDeleteModal && (
                         <DeleteModal id={questionId} modalHandler={handleDeleteModal} formAction={DeleteQuestionformAction} formState={DeleteQuestionformState}></DeleteModal>
+                    )
+                }
+
+                {
+                    showDeleteQuizModal && (
+                        <DeleteModal id={quizId} modalHandler={handleDeleteQuizModal} formAction={DeleteQuizFormAction} formState={DelteQuizFormState}></DeleteModal>
                     )
                 }
             </div>

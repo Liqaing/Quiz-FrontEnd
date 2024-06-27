@@ -159,7 +159,7 @@ const DataTable = (props: {fetchTable: Function}) => {
               </svg>
               <span className="sm:block xs:hidden">
                 ADD
-              </span>                  
+              </span>
             </Button>
           </div>
           <div className="flex gap-3">
@@ -169,7 +169,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         </div>
 
         <div className="w-full overflow-y-scroll overflow-x-hidden rounded-lg h-[80vh]">  
-          <QuizContent data={data} handleDeleteModal={handleDeleteModal} handleEditForm={handleEditModal}/>
+          <QuizContent path="quiz" data={data} handleDeleteModal={handleDeleteModal} handleEditForm={handleEditModal}/>
         </div>
 
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>

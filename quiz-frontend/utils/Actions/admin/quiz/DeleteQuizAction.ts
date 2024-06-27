@@ -45,9 +45,20 @@ export default async function DeleteQuizAction(formState: {message: string}, for
     }
 
     if(data === "success") {
-        return {
-            message: "success"
-        };
+        const headersList = headers();
+        const fullUrl = headersList.get('referer') || "";
+        // redirect(fullUrl);
+        if (fullUrl.endsWith("/quiz")) {
+            return {
+                message: "success"
+            };            
+        }
+        else {
+            const pathname = new URL(fullUrl).pathname;
+            const pathParts = pathname.split('/');
+            const path = `/${pathParts[1]}/${pathParts[2]}`;
+            redirect(path);
+        }       
     }
     else{        
         return {

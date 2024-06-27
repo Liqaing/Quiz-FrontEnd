@@ -4,7 +4,7 @@ import QuestionView from "@/components/View/question/QuestionListView";
 import DeleteModal from "@/components/form/DeleteModal/DeleteModel";
 import QuestionForm from "@/components/form/admin/question/add/Question";
 import { QuizData } from "@/type/type";
-import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
+import { FetchDisplayQuiz } from "@/utils/API/quiz/FetchDisplayQuiz";
 import CreateQuestionAction from "@/utils/Actions/admin/Question/CreateQuestion";
 import DeleteQuestionAction from "@/utils/Actions/admin/Question/DeleteQuestion";
 import EditQuestionAction from "@/utils/Actions/admin/Question/EditQuestion";
@@ -22,7 +22,7 @@ export default function QuizQuestion(props: {quizId:string, pathBack:string}) {
     const [quizData, setQuizData] = useState<QuizData | null>(null);
 
     async function FetchQuiz(quizId:string) {
-        const data = await FetchOneQuiz(quizId);
+        const data = await FetchDisplayQuiz(quizId);
         if (data) {
             setQuizData(data);
         }

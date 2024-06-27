@@ -10,7 +10,9 @@ export default function DeleteModal(props: {id:string, formAction:any, formState
     }, []);
 
     useEffect(() => {
-        if(props.formState.message === "success") props.modalHandler();
+        if(props.formState) {
+            if (props.formState.message == "success") props.modalHandler();
+        } 
     })
 
     return (

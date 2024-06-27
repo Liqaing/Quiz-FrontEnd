@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { FetchOneQuiz } from "@/utils/API/quiz/FetchOneQuiz";
 import { QuizData } from "@/type/type";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
 import FormSubmit from "../form/DeleteModal/formsubmit";
+import { FetchDisplayQuiz } from "@/utils/API/quiz/FetchDisplayQuiz";
 
 export default function QuizDetailDisplay(props: {quizId:string | null, modelHandler:any}) {
 
@@ -16,7 +16,7 @@ export default function QuizDetailDisplay(props: {quizId:string | null, modelHan
 
     async function getQuiz() {
         if (props.quizId) {
-            const data = await FetchOneQuiz(props.quizId);
+            const data = await FetchDisplayQuiz(props.quizId);
             if (data) {
                 setquizData(data);                
             }
