@@ -153,7 +153,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         <Pagination nextPage={nextPage} previousPage={previousPage} firstPage={firstPage} lastPage={lastPage} page={page}/>
         {
           showModal && ( 
-            <DeleteModal modalHandler={handleDeleteModal} formAction={formAction} formState={formState} id={userId as string}></DeleteModal>
+            <DeleteModal pathBack={null} modalHandler={handleDeleteModal} formAction={formAction} formState={formState} id={userId as string}></DeleteModal>
           )
         }
         
