@@ -15,6 +15,8 @@ interface RegisterData {
 const SignUpAction = async (formState: {message: string}, formData:any): Promise<{
     message:string
 }> => {
+
+    let res;
     
     try {
         const isUserLogin = CheckLogin();
@@ -40,14 +42,14 @@ const SignUpAction = async (formState: {message: string}, formData:any): Promise
             };
         }
 
-        const url = process.env.BASE_API_URL + "register";
+        const url = process.env.BASE_API_URL + "v2/register";
         const body = JSON.stringify({
             "username": username,
             "email": email,
             "password": password,
             "role": role
         })
-        const res = await fetch(
+        res = await fetch(
             url,
             {
                 headers: {
@@ -72,7 +74,11 @@ const SignUpAction = async (formState: {message: string}, formData:any): Promise
         throw new Error(error);
     }
 
-    redirect("/account/login");
+    if(res.ok) {
+        redirect("/account/sign-up/otp?email=" + formData.get("email") );
+    }else {
+        throw new Error(await res.text());
+    }
 }
 
 export default SignUpAction

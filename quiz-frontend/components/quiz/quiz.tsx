@@ -101,7 +101,6 @@ const Quizzes = (prop: {FetchQuiz: Function}) => {
                       </svg>
                     </Button>
                   </div>
-                  
                 </div>
               ))}
 

@@ -70,12 +70,12 @@ const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:String}
                 {!isUserLogin && (
                     <>                                
                         <li>
-                            <Link href='/account/login' className={`block py-1 px-2.5 rounded md:border-0 dark:hover:text-white hover:bg-blue-700 rounded-md ${ pathName.startsWith("/account/login") ? "bg-blue-700" : "text-white-700"}`}>
+                            <Link href='/account/login' className={`block py-1 px-2.5 md:border-0 dark:hover:text-white hover:bg-blue-700 rounded-md ${ pathName.startsWith("/account/login") ? "bg-blue-700" : "text-white-700"}`}>
                                 Login
                             </Link>
                         </li>
                         <li>
-                            <Link href='/account/sign-up' className={`block py-1 px-2.5 rounded md:border-0 dark:hover:text-white hover:bg-blue-700 md:rounded-none rounded-md ${ pathName.startsWith("/account/sign-up") ? "bg-blue-700" : "text-white-700"}`}>
+                            <Link href='/account/sign-up' className={`block py-1 px-2.5 md:border-0 dark:hover:text-white hover:bg-blue-700 rounded-md ${ pathName.startsWith("/account/sign-up") ? "bg-blue-700" : "text-white-700"}`}>
                                 Sign up
                             </Link>
                         </li>
