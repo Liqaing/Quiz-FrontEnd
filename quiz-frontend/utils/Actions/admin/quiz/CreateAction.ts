@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import {GetUserRole} from "../../Auth/GetUserRole";
 import { isEmpty } from "@/utils/utils";
 import { customFetch } from "@/utils/API/CustomFetch";
+import { headers } from "next/headers";
 
 
 const CreateQuizAction = async (formState: {message: string}, formData: FormData): Promise<{
@@ -66,7 +67,10 @@ const CreateQuizAction = async (formState: {message: string}, formData: FormData
     }
 
     if (data) {
-        redirect(`/admin/quiz/edit/${data.id}?name=${data.name}&visibility=${data.visibility}&createdAt${data.createdAt}&description=${data.description}`);
+        const headersList = headers();
+        const fullUrl = headersList.get('referer') || "";
+        const urlObj = new URL(fullUrl);
+        redirect(`${urlObj.pathname}/edit/${data.id}?name=${data.name}&visibility=${data.visibility}&createdAt${data.createdAt}&description=${data.description}`);
     }
 
     return {

@@ -11,15 +11,15 @@ export default function QuestionView(props: {data: QuizData | null, handleEditQu
                     return (
                         <div key={index} className="md:h-auto py-2 px-4 my-2 flex flex-col bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex justify-between text-sm">
-                                <p className="py-1">{d.type}</p>
+                                <p className="py-1 md:text-sm text-[0.7rem]">{d.type}</p>
 
-                                <div className="flex gap-2">
-                                    <p className="p-1 bg-white w-fit md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        1 Points
+                                <div className="flex md:gap-2 gap-1">
+                                    <p className="p-1 px-2 bg-white md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                        1 P<span className="xs:hidden sm:inline-block">oints</span>
                                     </p>
-                                    <p className="p-1 bg-white w-fit md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <span className="xs:hidden sm:inline-block">Create Date -</span>&nbsp;                                    
-                                    {((updateDate.getMonth() > 8) ? (updateDate.getMonth() + 1) : ('0' + (updateDate.getMonth() + 1))) + '/' + ((updateDate.getDate() > 9) ? updateDate.getDate() : ('0' + updateDate.getDate())) + '/' + updateDate.getFullYear()}
+                                    <p className="p-1 px-2 bg-white md:text-sm text-xs border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                        <span className="xs:hidden sm:inline-block">Create Date -</span>&nbsp;                                    
+                                        {((updateDate.getMonth() > 8) ? (updateDate.getMonth() + 1) : ('0' + (updateDate.getMonth() + 1))) + '/' + ((updateDate.getDate() > 9) ? updateDate.getDate() : ('0' + updateDate.getDate())) + '/' + updateDate.getFullYear()}
                                     </p>
                                 </div>  
                             </div>

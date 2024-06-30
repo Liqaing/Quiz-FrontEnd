@@ -18,7 +18,7 @@ export default function PlayQuiz(props: {quiz: QuizData | null | undefined, form
                             <div className="w-4/5">
                                 <p className="lg:text-lg md:text-base font-medium tracking-tight text-gray-900 dark:text-white">{`${questionIndex + 1}. ${d.question}`}</p>
                             </div>
-                            <div className="grid grid-cols-2 gap-2 my-3">
+                            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-4 my-3 mb-4">
                                 {
                                     d.answers.map((answer: Answer, answerIndex: number) => {
                                         return (
@@ -27,7 +27,7 @@ export default function PlayQuiz(props: {quiz: QuizData | null | undefined, form
                                                     type="radio"
                                                     name={`answer-${questionIndex}`}
                                                     value={answer.id}
-                                                    className="mr-2"
+                                                    className="mr-2 text-xl scale-125"
                                                     required
                                                 />
                                                 {answer.answer}

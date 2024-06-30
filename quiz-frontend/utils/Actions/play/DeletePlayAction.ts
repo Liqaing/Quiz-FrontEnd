@@ -43,10 +43,21 @@ export default async function DeletePlayAction(formState: {message: string}, for
         };
     }
 
-    if(data) {        
-        return {
-            message: "success"
-        };
+    if(data) {
+        const headersList = headers();
+        const url = headersList.get('referer') || "";
+        const fullURL = new URL(url);
+        const pathname = fullURL.pathname;
+
+        if (pathname.endsWith("/play-history")) {
+            return {
+                message: "success"
+            };
+        }
+        else {
+            const fromQuery = fullURL.searchParams.get("from") as string;
+            redirect(fromQuery);
+        }              
     }
     else{        
         return {

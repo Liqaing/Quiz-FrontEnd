@@ -22,7 +22,7 @@ export default function DeleteModal(props: {id:string, formAction:any, formState
                 }
             }
         } 
-    })
+    }, [props.formState])
 
     return (
         <form action={props.formAction} >

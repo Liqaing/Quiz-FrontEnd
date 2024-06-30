@@ -102,9 +102,12 @@ const CreateQuestionAction = async (formState: {message: string}, formData: Form
 
     if (data) {
 
-        const headersList = headers();
-        const fullUrl = headersList.get('referer') || "";
-        redirect(fullUrl);
+        // const headersList = headers();
+        // const fullUrl = headersList.get('referer') || "";
+        // redirect(fullUrl);
+        return {
+            message: "success"
+        }
     }
 
     return {

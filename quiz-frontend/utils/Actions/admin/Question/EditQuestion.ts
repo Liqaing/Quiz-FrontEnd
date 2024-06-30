@@ -104,9 +104,12 @@ const EditQuestionAction = async (formState: {message: string}, formData: FormDa
 
     if (data) {
 
-        const headersList = headers();
-        const fullUrl = headersList.get('referer') || "";
-        redirect(fullUrl);
+        return {
+            message: "success"
+        }
+        // const headersList = headers();
+        // const fullUrl = headersList.get('referer') || "";
+        // redirect(fullUrl);
     }
 
     return {

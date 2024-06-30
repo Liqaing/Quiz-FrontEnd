@@ -110,7 +110,7 @@ export default function MyQuiz() {
                     {
                         showDelete &&
                         (
-                            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DelteFormState} id={quizId}></DeleteModal>
+                            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DelteFormState} id={quizId} pathBack={null}></DeleteModal>
                         )
                     }
                 </div>

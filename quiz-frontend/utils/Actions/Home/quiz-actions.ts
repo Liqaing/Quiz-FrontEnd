@@ -2,10 +2,10 @@
 
 import { customFetch } from "@/utils/API/CustomFetch";
 
-export async function FetchQuiz(prop: {page:Number}) {
+export async function FetchQuiz(prop: {page:Number, search:string}) {
     try {
         const url = new URL(process.env.BASE_API_URL + "api/quiz/findAll");
-        url.searchParams.append("search", "");
+        url.searchParams.append("search", prop.search);
         url.searchParams.append("orderBy", "DATE");
         url.searchParams.append("order", "DESC");
         url.searchParams.append("page", prop.page.toString());

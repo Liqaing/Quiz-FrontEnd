@@ -190,7 +190,7 @@ const DataTable = (props: {fetchTable: Function}) => {
         {
           showDelete &&
           (
-            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DelteFormState} id={quizId}></DeleteModal>
+            <DeleteModal modalHandler={handleDeleteModal} formAction={DeleteFormAction} formState={DelteFormState} id={quizId} pathBack={null}></DeleteModal>
           )
         }
         
