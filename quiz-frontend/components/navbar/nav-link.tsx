@@ -12,34 +12,12 @@ const NavLink = ({isUserLogin, userRole}: {isUserLogin:boolean, userRole:String}
     // Retreive path name which user currently on
     const pathName = usePathname(); 
     
-    const [openDropdown, setOpenDropdown] = useState(false);
-    const toggleDropdown = () => {
-        setOpenDropdown(!openDropdown);
-    }
     return (             
         <>           
             <ul className="flex flex-col gap-4 font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">                
                 <li>
-                    { userRole === "ROLE_ADMIN" && <Navdropdown/>}
-                    {openDropdown && (
-                        <div id="dropdownNavbar" className="absolute z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                            <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                <li>
-                                    <Link href="/admin/user" className="block px-4 py-2 hover:bg-blue-700 dark:hover:text-white">User</Link>
-                                </li>
-                                <li>
-                                    <Link href="/admin/quiz" className="block px-4 py-2 hover:bg-blue-700 dark:hover:text-white">Quiz</Link>
-                                </li>
-                                <li>
-                                    <a href="/admin/play" className="block px-4 py-2 hover:bg-blue-700 dark:hover:text-white">Play History</a>
-                                </li>
-                            </ul>
-                        </div>
-                    )}                                                                       
-                    
-                </li>
-                
-                
+                    { userRole === "ROLE_ADMIN" && <Navdropdown/>}                                                                                                                                      
+                </li>                            
 
                 {(isUserLogin) && 
                     <>
