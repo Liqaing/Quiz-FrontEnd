@@ -6,8 +6,7 @@ import NavLink from "./nav-link"
 const NavBarMenu = (props: {isUserLogin:any, userRole:any}) => {
     const [openDropdown, setOpenDropdown] = useState(false);
     const toggleDropdown = () => {
-        setOpenDropdown(!openDropdown);
-        console.log(openDropdown)
+        setOpenDropdown(!openDropdown);        
     }
 
     return (
