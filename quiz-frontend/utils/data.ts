@@ -29,7 +29,7 @@ export const member = [
   {
       name: "Vorn Navatra",
       position: "Team Member",
-      image: "/defaultProfile.bmp",
+      image: "/navatra.jpg",
   },
   {
       name: "Oem YongSinh",
@@ -89,7 +89,7 @@ export const roleMember = [
           {
               name: "Vorn Navatra",
               position: "API Tester",
-              image: "/defaultProfile.bmp",
+              image: "/navatra.jpg",
           },
           {
               name: "Ol Eevin",
