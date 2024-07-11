@@ -33,10 +33,16 @@ export default function QuestionForm(props: {quizId:string | null, formAction:an
         if(props.formState) {
             if (props.formState.message == "success") {
                 props.handleModal();
+                props.formState.message = ""
             }
-            props.formState.message = ""
         } 
     }, [props.formState])
+
+    useEffect(() => {
+        if(props.formState) {
+            props.formState.message = ""
+        } 
+    }, [])
 
     const handleAnswerChange = (index: number, value: string) => {
         const newAnswers = [...answers];
