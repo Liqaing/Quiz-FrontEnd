@@ -80,7 +80,7 @@ export default function ViewPlay({ params }: { params: { id: string} }) {
                     <div className="lg:w-2/12 w-full lg:block flex justify-end gap-3 md:mt-0 mt-5">
                         {                     
                             date && (
-                                <p className="text-end lg:text-sm text-xs">                            
+                                <p className="text-start lg:text-sm text-xs">                            
                                     Created - {((date?.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}                
                                 </p>
                             )
